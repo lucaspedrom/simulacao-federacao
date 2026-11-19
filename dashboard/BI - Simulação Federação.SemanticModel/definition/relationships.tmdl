@@ -1,0 +1,150 @@
+relationship 6cc36d94-029a-43b1-b456-c37ca4255696
+	joinOnDateBehavior: datePartOnly
+	fromColumn: f_mdt_mandatarios_atuais.dt_nascimento
+	toColumn: LocalDateTable_7f576c16-3f29-4643-b072-0e22ab16012a.Date
+
+relationship f7f2e192-5794-41a8-8ff9-57e63f58c5ef
+	joinOnDateBehavior: datePartOnly
+	fromColumn: f_filiados_2024.'Data de carga'
+	toColumn: LocalDateTable_ebdfa3e3-bd9d-4a49-b0b0-7dee136240c1.Date
+
+relationship e0ac48d8-6620-44ef-aa08-1ad0f07280eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: f_recursos_partidos_2022.dt_carga
+	toColumn: LocalDateTable_c7143b5b-0421-42c3-bbd8-d82bdda1df7b.Date
+
+relationship AutoDetected_d04e1a44-b838-4e47-8654-c89b7e93672a
+	fromColumn: f_mdt_mandatarios_atuais.cd_genero
+	toColumn: d_genero.cd_genero
+
+relationship AutoDetected_14723a3e-abc9-4d68-a7da-e65435289192
+	fromColumn: f_mdt_mandatarios_atuais.cd_cor_raca
+	toColumn: d_cor_raca.cd_cor_raca
+
+relationship AutoDetected_44246122-906b-43ab-9685-5479de1addfb
+	fromColumn: f_mdt_mandatarios_atuais.cod_tse
+	toColumn: d_local_municipio.cod_tse
+
+relationship 66da0895-f786-2c3c-bab5-623b028e3d3a
+	toCardinality: many
+	fromColumn: f_recursos_partidos_2022.sg_uf
+	toColumn: d_local_municipio.uf
+
+relationship AutoDetected_fe3a457e-4bec-41b4-9f3c-fe69d76b2e40
+	fromColumn: d_local_municipio.uf
+	toColumn: d_estado.uf
+
+relationship 3bff9cf2-fd47-40a3-b88e-bd03fb1f302f
+	fromColumn: f_candidatos_2022.cd_cor_raca
+	toColumn: d_cor_raca.cd_cor_raca
+
+	annotation PBI_IsFromSource = FS
+
+relationship 979358ab-ac45-4834-9a8d-ae8cb7d6f05a
+	fromColumn: f_candidatos_2022.cd_genero
+	toColumn: d_genero.cd_genero
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6947898f-5133-107a-b83a-a0630318694a
+	fromColumn: f_candidatos_2022.sg_uf
+	toColumn: d_estado.uf
+
+relationship 9be40081-1ba9-4d55-b019-8cb11b068511
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Data de Atualização'.'Data de Atualização'
+	toColumn: LocalDateTable_0eb6e5c7-662b-4477-afc0-bc06bf5bb6b8.Date
+
+relationship cd27f4de-7731-4a5a-ab3b-5645b5cd3693
+	joinOnDateBehavior: datePartOnly
+	fromColumn: f_filiados_2024.mes_ano
+	toColumn: LocalDateTable_aeb77dc5-2de3-4c12-be91-bf7c004e6864.Date
+
+relationship b648d0e9-31bd-426c-a60a-501f552e43e4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: f_fundo_partidario.data_consulta
+	toColumn: LocalDateTable_9cba7147-dadb-487c-9bab-f6a786b698ee.Date
+
+relationship ff7e5bad-1609-4d19-afc8-1922aee0a2ba
+	joinOnDateBehavior: datePartOnly
+	fromColumn: f_orgaos_vigentes.dataInicioVigencia
+	toColumn: LocalDateTable_29e37f24-2b17-44bb-a473-a03b863fa4e4.Date
+
+relationship c152d9be-8d4a-98c5-0b95-907b1d8d8c9b
+	fromColumn: f_orgaos_vigentes.cod_tse
+	toColumn: d_local_municipio.cod_tse
+
+relationship 5e35b7f9-bd9b-26cd-78e5-9f18c5960088
+	fromColumn: f_recursos_partidos_2022.partido
+	toColumn: d_partidos.partido
+
+relationship 2d1979d9-b07f-b8fa-295d-4093051cdb1c
+	fromColumn: f_filiados_2024.Partido
+	toColumn: d_partidos.partido
+
+relationship ccada1fb-5457-d94f-88a5-20f73e8b2c55
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: f_fefc.sg_partido
+	toColumn: d_partidos.partido
+
+relationship 0a07dbe5-788c-7bb5-af6c-b9b6dea9d8d2
+	fromColumn: f_orgaos_vigentes.sigla
+	toColumn: d_partidos.partido
+
+relationship 8709a0d4-d5af-f89f-697b-59e2ac08f61b
+	fromColumn: f_candidatos_2022.sg_partido
+	toColumn: d_partidos.partido
+
+relationship 6e348618-a7a6-28c6-848a-69fb48421b07
+	fromColumn: f_mdt_mandatarios_atuais.partido_atual
+	toColumn: d_partidos.partido
+
+relationship 313c773e-3470-4f1a-2573-b1fcf9b88734
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: f_fundo_partidario.Partido
+	toColumn: d_partidos.partido
+
+relationship 9c3e8543-1c0b-3ba5-0519-05d2f296ef07
+	fromColumn: f_votos_partido_uf.sg_partido
+	toColumn: d_partidos.partido
+
+relationship 9eef6432-0392-bab7-ae2a-e8a6b12f78f7
+	fromColumn: f_votos_partido_uf.sg_uf
+	toColumn: d_estado.uf
+
+relationship 2472f0aa-466d-1ee7-6f1c-0f47540a8ce7
+	fromColumn: f_historico_eleicoes.sg_partido
+	toColumn: d_partidos.partido
+
+relationship f074bfb5-dc74-d759-2a5f-df2b426ba8a3
+	fromColumn: f_historico_eleicoes.cod_tse
+	toColumn: d_local_municipio.cod_tse
+
+relationship 4c1a46fb-699b-e8ac-a061-69cff7cabfc5
+	fromColumn: f_partido_distribuicao_municipio_2024.sg_partido
+	toColumn: d_partidos.partido
+
+relationship b9db10e1-043d-da65-35cc-13199079c029
+	fromColumn: f_partido_distribuicao_municipio_2024.cod_tse
+	toColumn: d_local_municipio.cod_tse
+
+relationship acef3a05-8b2a-05bc-f08c-f528d8134c2d
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: f_investimento_partido_candidato.SQ_CANDIDATO
+	toColumn: f_historico_eleicoes.sq_candidato
+
+relationship b2eaa50a-2ab1-df61-c0e8-540817500e7b
+	fromColumn: f_filiados_2024.cod_tse
+	toColumn: d_local_municipio.cod_tse
+
+relationship b57046b3-0342-c131-4a5e-be38d2118364
+	fromColumn: d_local_municipio.cod_faixa_populacional
+	toColumn: d_faixa_pop.cod_faixa_populacional
+
+relationship 1ce62b95-3696-2dde-87ab-572426d1fca0
+	fromColumn: f_historico_eleicoes.ds_cargo
+	toColumn: d_eleicao_analise.ds_cargo
+

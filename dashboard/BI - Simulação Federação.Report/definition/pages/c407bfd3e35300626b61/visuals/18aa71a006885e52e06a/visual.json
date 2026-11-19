@@ -1,0 +1,147 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "18aa71a006885e52e06a",
+  "position": {
+    "x": 650.87412587412587,
+    "y": 1037.8321678321679,
+    "z": 37000,
+    "height": 121.25874125874125,
+    "width": 1107.3776223776224,
+    "tabOrder": 36000
+  },
+  "visual": {
+    "visualType": "pureVizInfographicC9801BF222134D2D83FA9C41861F3482",
+    "query": {
+      "queryState": {
+        "dataset": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "6.08 Conflito Partidos com Mandatário Estratégico"
+                }
+              },
+              "queryRef": "Medidas.6.08 Conflito Partidos com Mandatário Estratégico",
+              "nativeQueryRef": "6.08 Conflito Partidos com Mandatário Estratégico"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "6.09 Cargos Conflito"
+                }
+              },
+              "queryRef": "Medidas.6.09 Cargos Conflito",
+              "nativeQueryRef": "6.09 Cargos Conflito"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "6.08 Conflito Partidos com Mandatário Estratégico"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "editpanel": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "circle": [
+        {
+          "properties": {
+            "svgCode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'<svg width=\"1105\" height=\"100\" viewBox=\"0 0 1105 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"1105\" height=\"100\" rx=\"10\" fill=\"white\"/><path d=\"M35 40.4C35 40.9523 35.4477 41.4 36 41.4C36.5523 41.4 37 40.9523 37 40.4H35ZM37 34C37 33.4477 36.5523 33 36 33C35.4477 33 35 33.4477 35 34H37ZM35 66C35 66.5523 35.4477 67 36 67C36.5523 67 37 66.5523 37 66H35ZM37 59.6C37 59.0477 36.5523 58.6 36 58.6C35.4477 58.6 35 59.0477 35 59.6H37ZM45.6 49C45.0477 49 44.6 49.4477 44.6 50C44.6 50.5523 45.0477 51 45.6 51V49ZM52 51C52.5523 51 53 50.5523 53 50C53 49.4477 52.5523 49 52 49V51ZM20 49C19.4477 49 19 49.4477 19 50C19 50.5523 19.4477 51 20 51V49ZM26.4 51C26.9523 51 27.4 50.5523 27.4 50C27.4 49.4477 26.9523 49 26.4 49V51ZM48.8 49.9999H47.8C47.8 56.5169 42.517 61.7999 36 61.7999V62.7999V63.7999C43.6215 63.7999 49.8 57.6214 49.8 49.9999H48.8ZM36 62.7999V61.7999C29.483 61.7999 24.2 56.5169 24.2 49.9999H23.2H22.2C22.2 57.6214 28.3785 63.7999 36 63.7999V62.7999ZM23.2 49.9999H24.2C24.2 43.4829 29.483 38.1999 36 38.1999V37.1999V36.1999C28.3785 36.1999 22.2 42.3784 22.2 49.9999H23.2ZM36 37.1999V38.1999C42.517 38.1999 47.8 43.4829 47.8 49.9999H48.8H49.8C49.8 42.3784 43.6215 36.1999 36 36.1999V37.1999ZM36 40.4H37V34H36H35V40.4H36ZM36 66H37V59.6H36H35V66H36ZM45.6 50V51H52V50V49H45.6V50ZM20 50V51H26.4V50V49H20V50ZM40.8 50H39.8C39.8 52.0987 38.0987 53.8 36 53.8V54.8V55.8C39.2033 55.8 41.8 53.2033 41.8 50H40.8ZM36 54.8V53.8C33.9013 53.8 32.2 52.0987 32.2 50H31.2H30.2C30.2 53.2033 32.7967 55.8 36 55.8V54.8ZM31.2 50H32.2C32.2 47.9013 33.9013 46.2 36 46.2V45.2V44.2C32.7967 44.2 30.2 46.7967 30.2 50H31.2ZM36 45.2V46.2C38.0987 46.2 39.8 47.9013 39.8 50H40.8H41.8C41.8 46.7967 39.2033 44.2 36 44.2V45.2Z\" fill=\"#7C868F\"/><text fill=\"#7C868F\" xml:space=\"preserve\" style=\"white-space: pre\" font-family=\"Segoe UI\" font-size=\"24\" letter-spacing=\"0em\"><tspan x=\"62\" y=\"59.9375\">Conflito:</tspan></text><text fill=\"#7C868F\" xml:space=\"preserve\" style=\"white-space: pre\" font-family=\"Segoe UI\" font-size=\"24\" letter-spacing=\"0em\"><tspan x=\"162\" y=\"59.9375\">Deputado Estadual</tspan></text></svg>'"
+                }
+              }
+            },
+            "modifications": {
+              "expr": {
+                "Literal": {
+                  "Value": "'[{\"vid\":\"5\",\"vty\":\"tspan\",\"typ\":\"textcontent\",\"mop\":\"custom\",\"mvl\":[\"{text|[6.09 Cargos Conflito]|}\"]},{\"vid\":\"0\",\"vty\":\"rect\",\"typ\":\"shapefill\",\"mop\":\"custom\",\"mvl\":[\"{if|math|[6.08 Conflito Partidos com Mandatário Estratégico]|>|math|0|text|rgba(241, 137, 145, 1)||text|rgba(63, 170, 128, 1)}\"]},{\"vid\":\"2\",\"vty\":\"text\",\"typ\":\"textfill\",\"mop\":\"custom\",\"mvl\":[\"rgba(245, 245, 245, 1)\"]},{\"vid\":\"1\",\"vty\":\"path\",\"typ\":\"shapefill\",\"mop\":\"custom\",\"mvl\":[\"rgba(245, 245, 245, 1)\"]},{\"vid\":\"4\",\"vty\":\"text\",\"typ\":\"textfill\",\"mop\":\"custom\",\"mvl\":[\"rgba(245, 245, 245, 1)\"]}]'"
+                }
+              }
+            },
+            "fieldnames": {
+              "expr": {
+                "Literal": {
+                  "Value": "'[{\"n\":\"6.08 Conflito Partidos com Mandatário Estratégico\",\"q\":\"Medidas.6.08 Conflito Partidos com Mandatário Estratégico\"},{\"n\":\"6.09 Cargos Conflito\",\"q\":\"Medidas.6.09 Cargos Conflito\"}]'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "padding": [
+        {
+          "properties": {
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

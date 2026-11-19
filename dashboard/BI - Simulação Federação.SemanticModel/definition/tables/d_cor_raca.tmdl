@@ -1,0 +1,35 @@
+table d_cor_raca
+	lineageTag: 5a3ab1bd-1e2a-4791-b25b-0fb76c8b9e77
+
+	column cd_cor_raca
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d89b575-938a-4008-838a-f160a4b44bbb
+		summarizeBy: none
+		sourceColumn: cd_cor_raca
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_cor_raca
+		dataType: string
+		lineageTag: d2834248-f849-46e8-9866-4ced1b82e8df
+		summarizeBy: none
+		sourceColumn: ds_cor_raca
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_cor_raca = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "d_cor_raca.parquet")
+				                     otherwise try File.Contents("..\data\d_cor_raca.parquet")
+				                     otherwise File.Contents("data\d_cor_raca.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

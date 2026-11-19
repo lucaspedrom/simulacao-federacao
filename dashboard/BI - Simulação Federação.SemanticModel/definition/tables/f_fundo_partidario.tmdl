@@ -1,0 +1,65 @@
+table f_fundo_partidario
+	lineageTag: e54d5fe8-479f-40dc-8855-be2365458a93
+
+	column Partido
+		dataType: string
+		lineageTag: 610e0661-e3d2-40ac-ac13-1ac660841fe9
+		summarizeBy: none
+		sourceColumn: Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dotação
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 2619ec72-bc2f-4f88-9aea-70f7638a8d92
+		summarizeBy: sum
+		sourceColumn: Dotação
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Distribuído
+		dataType: double
+		lineageTag: f25258d0-615c-4321-ba8a-6f7dcd634e70
+		summarizeBy: sum
+		sourceColumn: Distribuído
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column data_consulta
+		dataType: dateTime
+		formatString: mmmm" de "yyyy
+		lineageTag: 332504ba-783c-4c0d-9abb-188e8527d788
+		summarizeBy: none
+		sourceColumn: data_consulta
+
+		variation Variation
+			isDefault
+			relationship: b648d0e9-31bd-426c-a60a-501f552e43e4
+			defaultHierarchy: LocalDateTable_9cba7147-dadb-487c-9bab-f6a786b698ee.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition f_fundo_partidario = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_fundo_partidario.parquet")
+				                     otherwise try File.Contents("..\data\f_fundo_partidario.parquet")
+				                     otherwise File.Contents("data\f_fundo_partidario.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

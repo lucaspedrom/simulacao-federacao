@@ -1,0 +1,458 @@
+table f_candidatos_2022
+	lineageTag: 7d01d48e-c6bd-419b-9495-8a104b93a44e
+
+	column ano_eleicao
+		dataType: int64
+		formatString: 0
+		lineageTag: c4baa464-33c8-4864-a851-12a06eac9290
+		summarizeBy: sum
+		sourceColumn: ano_eleicao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_turno
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e930f1d-26a0-4191-901f-f037329f2754
+		summarizeBy: sum
+		sourceColumn: nr_turno
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tp_abrangencia
+		dataType: string
+		lineageTag: b2163ad2-9a9a-4bd7-9a50-45b8f5573d79
+		summarizeBy: none
+		sourceColumn: tp_abrangencia
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sg_uf
+		dataType: string
+		lineageTag: 016eab34-ad1d-4c3a-8f3d-50483231bc63
+		summarizeBy: none
+		sourceColumn: sg_uf
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_cargo
+		dataType: int64
+		formatString: 0
+		lineageTag: b6a22400-e5ef-4ec1-8e97-7981851a48bc
+		summarizeBy: sum
+		sourceColumn: cd_cargo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sq_candidato
+		dataType: string
+		lineageTag: a91a6347-4aa8-48a4-9006-1f740ec344a5
+		summarizeBy: none
+		sourceColumn: sq_candidato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_candidato
+		dataType: string
+		lineageTag: da480b7d-3e57-4c6e-a6eb-d342405c4316
+		summarizeBy: none
+		sourceColumn: nr_candidato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_candidato
+		dataType: string
+		lineageTag: f8677e6a-2e74-4bde-b50c-830fe6767bf5
+		summarizeBy: none
+		sourceColumn: nm_candidato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_urna_candidato
+		dataType: string
+		lineageTag: cb8ed469-8d74-4521-a0c5-8edf2a829960
+		summarizeBy: none
+		sourceColumn: nm_urna_candidato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_cpf_candidato
+		dataType: string
+		lineageTag: eaa39459-5dda-48d2-ae71-7546a319ae80
+		summarizeBy: none
+		sourceColumn: nr_cpf_candidato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_partido
+		dataType: int64
+		formatString: 0
+		lineageTag: d70158b5-cb14-471c-bb5f-1e54727561d2
+		summarizeBy: sum
+		sourceColumn: cd_partido
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sg_partido
+		dataType: string
+		lineageTag: 964426f2-c2c0-4941-bac7-33fbc8796e28
+		summarizeBy: none
+		sourceColumn: sg_partido
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_federacao
+		dataType: int64
+		formatString: 0
+		lineageTag: 590e8da2-724d-405d-8e3a-e0251183b892
+		summarizeBy: sum
+		sourceColumn: nr_federacao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sq_coligacao
+		dataType: int64
+		formatString: 0
+		lineageTag: 4df78661-574d-4efc-8dd3-f2ddcfbfbe1b
+		summarizeBy: sum
+		sourceColumn: sq_coligacao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_nacionalidade
+		dataType: int64
+		formatString: 0
+		lineageTag: b720a571-4018-402a-9097-ab515ddfa91a
+		summarizeBy: sum
+		sourceColumn: cd_nacionalidade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_titulo_eleitoral_candidato
+		dataType: string
+		lineageTag: 530752b0-cefa-4024-9e27-981f7d4594fc
+		summarizeBy: none
+		sourceColumn: nr_titulo_eleitoral_candidato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_genero
+		dataType: int64
+		formatString: 0
+		lineageTag: 78d46b6c-38fd-40a7-89bb-9d4c652cb36e
+		summarizeBy: none
+		sourceColumn: cd_genero
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_grau_instrucao
+		dataType: int64
+		formatString: 0
+		lineageTag: 0862db3d-3e74-4c20-954e-b104df6e762a
+		summarizeBy: sum
+		sourceColumn: cd_grau_instrucao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_estado_civil
+		dataType: int64
+		formatString: 0
+		lineageTag: 79669aaf-60d5-43fb-b0cf-badb40784001
+		summarizeBy: sum
+		sourceColumn: cd_estado_civil
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_cor_raca
+		dataType: int64
+		formatString: 0
+		lineageTag: 815e5841-bff6-4c05-91bb-eb043fe3f635
+		summarizeBy: none
+		sourceColumn: cd_cor_raca
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_ocupacao
+		dataType: int64
+		formatString: 0
+		lineageTag: a1abd502-f0e1-4234-927c-3a6620f333bb
+		summarizeBy: sum
+		sourceColumn: cd_ocupacao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column vr_despesa_max_campanha
+		dataType: double
+		lineageTag: 95b55ddf-c065-464f-a7d4-2a7166ad5b1c
+		summarizeBy: sum
+		sourceColumn: vr_despesa_max_campanha
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cd_sit_tot_turno
+		dataType: int64
+		formatString: 0
+		lineageTag: 5af89676-c4d8-4125-ab86-3e6be7e6fcd6
+		summarizeBy: sum
+		sourceColumn: cd_sit_tot_turno
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column st_declarar_bens
+		dataType: string
+		lineageTag: 6b3a32be-6bc2-4c36-9900-87ebf29247fa
+		summarizeBy: none
+		sourceColumn: st_declarar_bens
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_situacao_candidato_pleito
+		dataType: int64
+		formatString: 0
+		lineageTag: 712b7039-f46e-4fbe-83a5-8a105ed0304b
+		summarizeBy: sum
+		sourceColumn: cd_situacao_candidato_pleito
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_situacao_candidato_urna
+		dataType: int64
+		formatString: 0
+		lineageTag: 709d5648-ab1f-432d-a5b2-26ee1135bfdf
+		summarizeBy: sum
+		sourceColumn: cd_situacao_candidato_urna
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column st_candidato_inserido_urna
+		dataType: string
+		lineageTag: d79dcc4c-4d6b-4832-a445-4128d6dd810e
+		summarizeBy: none
+		sourceColumn: st_candidato_inserido_urna
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_tipo_destinacao_votos
+		dataType: string
+		lineageTag: 2461ea0b-19d1-47a1-a251-241322862c3f
+		summarizeBy: none
+		sourceColumn: nm_tipo_destinacao_votos
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_situacao_candidato_tot
+		dataType: int64
+		formatString: 0
+		lineageTag: af63509c-b30c-4a50-8819-17541bc66852
+		summarizeBy: sum
+		sourceColumn: cd_situacao_candidato_tot
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column foto_url
+		dataType: string
+		lineageTag: bc9d57f7-c078-48e9-b17b-0a27a02debb0
+		summarizeBy: none
+		sourceColumn: foto_url
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nominais
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b4515a1-8c9e-4ad3-a96d-bc974e4ae895
+		summarizeBy: sum
+		sourceColumn: qt_votos_nominais
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nominais_validos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 84ad4072-b968-432b-80ba-b6614b676167
+		summarizeBy: sum
+		sourceColumn: qt_votos_nominais_validos
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cargo.ds_cargo'
+		dataType: string
+		lineageTag: f1f6eb4d-0f2a-41ad-8fdc-8d9b9a9614dc
+		summarizeBy: none
+		sourceColumn: cargo.ds_cargo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cor_raca.ds_cor_raca'
+		dataType: string
+		lineageTag: cc1a445a-c039-4e20-a8fe-060e86d75515
+		summarizeBy: none
+		sourceColumn: cor_raca.ds_cor_raca
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'genero.ds_genero'
+		dataType: string
+		lineageTag: 4e556998-65bc-4f59-8948-af18de123c3b
+		summarizeBy: none
+		sourceColumn: genero.ds_genero
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sit_tot_turno.ds_sit_tot_turno'
+		dataType: string
+		lineageTag: b7531168-57ad-4be7-841c-03bba90d0142
+		summarizeBy: none
+		sourceColumn: sit_tot_turno.ds_sit_tot_turno
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'situacao_candidato_pleito.ds_situacao_candidato_pleito'
+		dataType: string
+		lineageTag: 4d563d0f-ad82-4370-abc4-505f48f0f0a1
+		summarizeBy: none
+		sourceColumn: situacao_candidato_pleito.ds_situacao_candidato_pleito
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'situacao_candidato_urna.ds_situacao_candidato_urna'
+		dataType: string
+		lineageTag: cd609a89-9585-4d03-b4b2-66250cd41d15
+		summarizeBy: none
+		sourceColumn: situacao_candidato_urna.ds_situacao_candidato_urna
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column mandatario_atual =
+			
+			var r = CALCULATE(DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),FILTER(f_mdt_mandatarios_atuais,f_mdt_mandatarios_atuais[sq_candidato]=f_candidatos_2022[sq_candidato]))
+			VAR C = CALCULATE(SELECTEDVALUE(f_mdt_mandatarios_atuais[cargo]),FILTER(f_mdt_mandatarios_atuais,f_mdt_mandatarios_atuais[sq_candidato]=f_candidatos_2022[sq_candidato]))
+			var p = CALCULATE(SELECTEDVALUE(f_mdt_mandatarios_atuais[partido_atual]),FILTER(f_mdt_mandatarios_atuais,f_mdt_mandatarios_atuais[sq_candidato]=f_candidatos_2022[sq_candidato]))
+			RETURN
+			IF(r>0,C&"("&P&")","-")
+		lineageTag: d2deea17-90b2-47ac-9f86-5dd5b46d8c45
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column genero_emoji =
+			
+			SWITCH(
+			    TRUE(),
+			    f_candidatos_2022[cd_genero] = 4, "🚺",
+			    f_candidatos_2022[cd_genero] = 2, "🚹",
+			    "-")
+		lineageTag: 7e945adc-7708-45ca-9e85-a633a78b9b2b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column resultado_eleito =
+			
+			SWITCH(
+			    TRUE(),
+			    f_candidatos_2022[sit_tot_turno.ds_sit_tot_turno] = "NÃO ELEITO", "NÃO ELEITO",
+			    f_candidatos_2022[sit_tot_turno.ds_sit_tot_turno] = "SUPLENTE", "SUPLENTE",
+			    CONTAINSSTRING(f_candidatos_2022[sit_tot_turno.ds_sit_tot_turno],"ELEITO"), "ELEITO",
+			    f_candidatos_2022[sit_tot_turno.ds_sit_tot_turno])
+		lineageTag: 4cf47adb-810c-45b7-84ef-412772eb1deb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_candidatos_2022 = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_candidatos_2022.parquet")
+				                     otherwise try File.Contents("..\data\f_candidatos_2022.parquet")
+				                     otherwise File.Contents("data\f_candidatos_2022.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo),
+				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"mandatario_atual", "genero_emoji", "resultado_eleito"}, MissingField.Ignore)
+				in
+				    #"Colunas Calculadas Removidas"
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

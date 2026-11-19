@@ -1,0 +1,174 @@
+table f_mdt_mandatarios_atuais
+	lineageTag: 4709b5ec-6e7e-42bd-9337-24ff64a6a1f3
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: ea188917-8429-4aaf-9165-99febb7545ae
+		summarizeBy: sum
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column cargo
+		dataType: string
+		lineageTag: 586f082f-a331-4037-98bd-71c6f6b40820
+		summarizeBy: none
+		sourceColumn: cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column sq_candidato
+		dataType: string
+		lineageTag: 74aa48b4-500d-4104-ac6b-9a76142f7bdd
+		summarizeBy: none
+		sourceColumn: sq_candidato
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_candidato
+		dataType: string
+		lineageTag: 505b18e6-ab56-4b69-b273-d7d5de6a5593
+		summarizeBy: none
+		sourceColumn: nm_candidato
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_urna_candidato
+		dataType: string
+		lineageTag: 98d56fee-b67f-460c-9e60-7bd5272262ca
+		summarizeBy: none
+		sourceColumn: nm_urna_candidato
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_candidato
+		dataType: string
+		lineageTag: eb3c9315-b712-43c6-932e-ac984a58c279
+		summarizeBy: none
+		sourceColumn: nr_candidato
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpf
+		dataType: string
+		lineageTag: b0ce277e-1e35-4f77-ba26-7e2f792960fc
+		summarizeBy: none
+		sourceColumn: cpf
+
+		annotation SummarizationSetBy = Automatic
+
+	column titulo_eleitor
+		dataType: string
+		lineageTag: c86aae0e-6644-422e-84df-844df601f1a7
+		summarizeBy: none
+		sourceColumn: titulo_eleitor
+
+		annotation SummarizationSetBy = Automatic
+
+	column partido_eleito
+		dataType: string
+		lineageTag: 99de2d8e-0dec-4251-aa8c-0a74b87c37cf
+		summarizeBy: none
+		sourceColumn: partido_eleito
+
+		annotation SummarizationSetBy = Automatic
+
+	column partido_atual
+		dataType: string
+		lineageTag: b5d14cc7-0502-4664-bf52-0a7f7a7c1c0d
+		summarizeBy: none
+		sourceColumn: partido_atual
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tse
+		dataType: string
+		lineageTag: a919d99a-a725-42f9-b035-6f1f5e1f9bb8
+		summarizeBy: none
+		sourceColumn: cod_tse
+
+		annotation SummarizationSetBy = Automatic
+
+	column st_reeleicao
+		dataType: string
+		lineageTag: d3b858f2-80ac-4e61-a651-9c5181899a7f
+		summarizeBy: none
+		sourceColumn: st_reeleicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_nascimento
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: affc0ad8-ef35-42da-a0df-a607f14b28e5
+		summarizeBy: none
+		sourceColumn: dt_nascimento
+
+		variation Variation
+			isDefault
+			relationship: 6cc36d94-029a-43b1-b456-c37ca4255696
+			defaultHierarchy: LocalDateTable_7f576c16-3f29-4643-b072-0e22ab16012a.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column cd_genero
+		dataType: int64
+		formatString: 0
+		lineageTag: fe85f724-ee30-4784-a8ea-92c22555e563
+		summarizeBy: none
+		sourceColumn: cd_genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd_cor_raca
+		dataType: int64
+		formatString: 0
+		lineageTag: 23edb290-6aa2-4db9-9568-a653533a7609
+		summarizeBy: none
+		sourceColumn: cd_cor_raca
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nominais_validos
+		dataType: int64
+		formatString: 0
+		lineageTag: cc7b0f68-d037-43bf-965f-6a1b0a7834f1
+		summarizeBy: sum
+		sourceColumn: qt_votos_nominais_validos
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: 1adfbba7-2380-4e47-95de-52fbabb7eb22
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio
+		dataType: string
+		lineageTag: f6a92c18-fe8f-47a9-b20f-918a9760533b
+		summarizeBy: none
+		sourceColumn: municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_mdt_mandatarios_atuais = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_mdt_mandatarios_atuais.parquet")
+				                     otherwise try File.Contents("..\data\f_mdt_mandatarios_atuais.parquet")
+				                     otherwise File.Contents("data\f_mdt_mandatarios_atuais.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

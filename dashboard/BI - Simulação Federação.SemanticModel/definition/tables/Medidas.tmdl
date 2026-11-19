@@ -1,0 +1,1070 @@
+table Medidas
+	lineageTag: 1366c0dc-a825-4360-aafb-c2515a6dbed3
+
+	measure '1.01 Qtd. Deputados Federais' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="DEPUTADO FEDERAL"),
+			        0
+			    )
+			```
+		formatString: 0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 8fc24c86-9618-4f7e-8c3e-4196c34ae24c
+
+	measure '1.02 Qtd. Votos Deputados Federais Mandatários' =
+			
+			SUMX(
+			    f_mdt_mandatarios_atuais,
+			    COALESCE(
+			        CALCULATE(
+			            SUM(f_mdt_mandatarios_atuais[qt_votos_nominais_validos]),
+			            f_mdt_mandatarios_atuais[cargo]="DEPUTADO FEDERAL"),
+			        0
+			    )
+			)
+		formatString: #,0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 081f4702-94cc-403c-b6fd-f103baa3c180
+
+	measure '1.03 Votos Deputados Federais Mandatários s/Filtro' =
+			
+			CALCULATE(
+			SUMX(
+			    f_mdt_mandatarios_atuais,
+			    COALESCE(
+			        CALCULATE(SUM(f_mdt_mandatarios_atuais[qt_votos_nominais_validos]),f_mdt_mandatarios_atuais[cargo]="DEPUTADO FEDERAL"),
+			        0
+			    )
+			),REMOVEFILTERS(d_partidos))
+		formatString: #,0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: b53d5f5c-4f56-4544-a737-cdc095cfcc2b
+
+	measure '1.04 % Votos Deputados Federais Mandatários' = ```
+			
+			        DIVIDE([1.02 Qtd. Votos Deputados Federais Mandatários],[1.03 Votos Deputados Federais Mandatários s/Filtro],0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 3af2cbd9-8ea5-478e-b567-2e5307e7c228
+
+	measure '1.05 Qtd. Mandatários Atuais' =
+			
+			SUMX(
+			    f_mdt_mandatarios_atuais,
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato])),
+			        0
+			    )
+			)+0
+		formatString: #,0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 21e8b325-23aa-4570-b897-1acdc6717605
+
+	measure '1.06 Qtd. Filiados' = ```
+			
+			VAR MaxMesAno = MAX(f_filiados_2024[mes_ano])
+			RETURN
+			COALESCE(
+			        CALCULATE(
+			            SUM(f_filiados_2024[Quantitativo]),
+			            FILTER(
+			                f_filiados_2024,
+			                f_filiados_2024[mes_ano] = MaxMesAno
+			            )
+			        ),
+			        0
+			    )
+			
+			```
+		formatString: #,0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: f4c6f444-794a-4344-be6c-ea3788ea1542
+
+	measure '2.01 Clausula de Barreira 1%' = IF([1.09 % Votos Deputados Federais Candidatos]>=0.01,1,0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: c04a3452-8a4d-4600-9574-96bdbdf330c4
+
+	measure '2.02 Clausula de Barreira 1.5%' = IF([1.09 % Votos Deputados Federais Candidatos]>=0.015,1,0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: 4c14f576-cd79-4e5b-8f1e-0c787ff00b4b
+
+	measure '2.03 Clausula de Barreira 2%' = IF([1.09 % Votos Deputados Federais Candidatos]>=0.02,1,0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: 02ca0bd7-1995-409f-9bf5-998f3321bae9
+
+	measure '2.04 Clausula de Barreira 2,5%' = IF([1.09 % Votos Deputados Federais Candidatos]>=0.025,1,0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: 0a7a307e-af86-4cbd-bd99-5598914274fc
+
+	measure '2.05 Clausula de Barreira 3%' = IF([1.09 % Votos Deputados Federais Candidatos]>=0.03,1,0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: 49c83a77-2c89-4307-9402-f3363cdc64b3
+
+	measure '1.07 Qtd. Votos Deputados Federais Candidatos+Legenda' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            SUM(f_candidatos_2022[qt_votos_nominais_validos]),
+			            f_candidatos_2022[cargo.ds_cargo]="DEPUTADO FEDERAL"),
+			        0
+			    )+
+			     COALESCE(
+			        CALCULATE(
+			            SUM(f_votos_partido_uf[qt_total_votos_leg_validos]),
+			            f_votos_partido_uf[ds_cargo]="DEPUTADO FEDERAL"),
+			        0
+			    )
+			
+			```
+		formatString: #,0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 326c2120-0cf8-44fe-b7b6-fe1d1b1be5d6
+
+	measure '1.09 % Votos Deputados Federais Candidatos' = ```
+			
+			        DIVIDE([1.07 Qtd. Votos Deputados Federais Candidatos+Legenda],[1.08 Votos Deputados Federais Candidatos s/Filtro],0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: a7b77919-364b-4ea0-a708-f340cdc40308
+
+	measure '1.08 Votos Deputados Federais Candidatos s/Filtro' =
+			
+			CALCULATE(
+			    COALESCE(
+			        CALCULATE(SUM(f_candidatos_2022[qt_votos_nominais_validos]),f_candidatos_2022[cargo.ds_cargo]="DEPUTADO FEDERAL"),
+			        0
+			),REMOVEFILTERS(d_partidos))+
+			CALCULATE(
+			    COALESCE(
+			        CALCULATE(SUM(f_votos_partido_uf[qt_total_votos_leg_validos]),f_votos_partido_uf[ds_cargo]="DEPUTADO FEDERAL"),
+			        0
+			),REMOVEFILTERS(d_partidos))
+		formatString: 0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 2c159956-dadf-42ee-ac65-2f4e4a1ee8d1
+
+	measure '3.01 Recurso Público Deputado Federal 2022' =
+			
+			SUMX(
+			    f_recursos_partidos_2022,
+			    COALESCE(
+			        CALCULATE(
+			            SUM(f_recursos_partidos_2022[vr_receita_trf]),
+			            f_recursos_partidos_2022[ds_cargo]="Deputado Federal",
+			            f_recursos_partidos_2022[ds_tipo_recurso]="Público"),
+			        0
+			    )
+			)
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		displayFolder: 3. Recursos
+		lineageTag: 36556a93-4f8a-4b06-b997-c505208ecb46
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '3.02 Recurso Privado Deputado Federal 2022' =
+			
+			SUMX(
+			    f_recursos_partidos_2022,
+			    COALESCE(
+			        CALCULATE(
+			            SUM(f_recursos_partidos_2022[vr_receita_trf]),
+			            f_recursos_partidos_2022[ds_cargo]="Deputado Federal",
+			            f_recursos_partidos_2022[ds_tipo_recurso]="Privado"),
+			        0
+			    )
+			)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 3. Recursos
+		lineageTag: d5d1bb54-2b7c-44a3-925d-59352875d492
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '3.03 Recurso Total 2022' =
+			
+			SUMX(
+			    f_recursos_partidos_2022,
+			    COALESCE(
+			        CALCULATE(
+			            SUM(f_recursos_partidos_2022[vr_receita_trf])),
+			        0
+			    )
+			)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 3. Recursos
+		lineageTag: a36af16b-c8dc-46e9-ac58-6669406dd956
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '4.01 Estado Selecionado' = CALCULATE(SELECTEDVALUE(d_estado[nome_uf]))
+		displayFolder: 4. Configurações
+		lineageTag: 5b1f6e05-f01c-4b42-b0ae-7394bcb7bb49
+
+	measure '2.06 Qtd. Estados Claususa de Barreia 1%' =
+			COALESCE(CALCULATE(
+			    DISTINCTCOUNT(d_estado[uf]),
+			    FILTER(
+			        d_estado,
+			        [2.01 Clausula de Barreira 1%]=1)),0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: ee2dedfb-b0b1-4a35-bd00-b77691c6efa1
+
+	measure '2.07 Qtd. Estados Claususa de Barreia 1,5%' =
+			COALESCE(CALCULATE(
+			    DISTINCTCOUNT(d_estado[uf]),
+			    FILTER(
+			        d_estado,
+			        [2.02 Clausula de Barreira 1.5%]=1)),0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: e0a37cd4-817c-4a7c-abca-f72475d38315
+
+	measure '2.08 Qtd. Estados Claususa de Barreia 2%' =
+			COALESCE(CALCULATE(
+			    DISTINCTCOUNT(d_estado[uf]),
+			    FILTER(
+			        d_estado,
+			        [2.03 Clausula de Barreira 2%]=1)),0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: f7835394-2972-440c-bbd1-c66457688eb9
+
+	measure '2.09 Qtd. Estados Claususa de Barreia 2,5%' =
+			COALESCE(CALCULATE(
+			    DISTINCTCOUNT(d_estado[uf]),
+			    FILTER(
+			        d_estado,
+			        [2.04 Clausula de Barreira 2,5%]=1)),0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: 1a35b44d-77e8-4699-a031-16b9ae504732
+
+	measure '2.10 Qtd. Estados Claususa de Barreia 3%' =
+			COALESCE(CALCULATE(
+			    DISTINCTCOUNT(d_estado[uf]),
+			    FILTER(
+			        d_estado,
+			        [2.05 Clausula de Barreira 3%]=1)),0)
+		formatString: 0
+		displayFolder: 2. Cláusula de Barreira
+		lineageTag: 04b87bca-5dd3-44a3-88d3-d5a2fc63cc43
+
+	measure '5.01 Qtd. UF com Deputados Eleitos' = CALCULATE(DISTINCTCOUNT(f_candidatos_2022[sg_uf]),REMOVEFILTERS(d_estado),f_candidatos_2022[cd_cargo]=6,f_candidatos_2022[cd_sit_tot_turno]IN{1,2,3})
+		formatString: 0
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 66c73d4e-3b5b-4ac9-bdb5-28f7f86fd5c3
+
+	measure '5.02 Qtd. Estados com mais de 1% de Votos' =
+			CALCULATE(
+			        DISTINCTCOUNT(d_estado[uf]),
+			        FILTER(
+			            ALL(d_estado),
+			            [1.09 % Votos Deputados Federais Candidatos] >= 0.01
+			        )
+			    )
+		formatString: 0
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 693cbf60-074a-462a-a06e-f6f434066b01
+
+	measure '5.03  Qtd. Deputados Federais Eleitos 2022' = CALCULATE(DISTINCTCOUNT(f_candidatos_2022[sq_candidato]),f_candidatos_2022[cd_cargo]=6,f_candidatos_2022[cd_sit_tot_turno]IN{1,2,3},REMOVEFILTERS(d_estado))
+		formatString: 0
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 63de5422-d052-464c-b07a-75f061d1d12e
+
+	measure '5.05 Qtd de Partidos/Fed. Formados 2026' =
+			
+			var t = CALCULATE(COUNT(d_partidos[partido]),REMOVEFILTERS(d_partidos))
+			var x = COUNT(d_partidos[partido])
+			RETURN
+			t-x+1
+		formatString: 0
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 8edefce0-5ff0-42c4-8834-b5e9cd02f314
+
+	measure '5.04 % Qtd. Deputados Federais Eleitos' =
+			
+			var t = CALCULATE(DISTINCTCOUNT(f_candidatos_2022[sq_candidato]),f_candidatos_2022[cd_cargo]=6,f_candidatos_2022[cd_sit_tot_turno]IN{1,2,3},REMOVEFILTERS(d_partidos),REMOVEFILTERS(d_estado))
+			RETURN
+			DIVIDE([5.03  Qtd. Deputados Federais Eleitos 2022],t,0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 6084ea57-a45b-4ae6-82fd-1183733c9da2
+
+	measure '5.06 % Tempo de TV e Rádio' =
+			
+			var d = DIVIDE(0.1,[5.05 Qtd de Partidos/Fed. Formados 2026])
+			var n = 0.9*[5.04 % Qtd. Deputados Federais Eleitos]
+			RETURN
+			IF(OR(AND([5.00 % Votos Deputados Federais Candidatos s/filtro UF]>=0.02,[5.02 Qtd. Estados com mais de 1% de Votos]>=9),AND([5.03  Qtd. Deputados Federais Eleitos 2022]>=11,[5.01 Qtd. UF com Deputados Eleitos]>=9)),D+n,0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 5519b219-a4d9-4488-950d-d5d93fc7d9e0
+
+	measure '5.07 Expectativa de Tempo' = [5.06 % Tempo de TV e Rádio]*25
+		displayFolder: 5. Análises Estaduais
+		lineageTag: fa556f88-97ab-4ac9-90cc-fb874d4403b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '5.00 % Votos Deputados Federais Candidatos s/filtro UF' = ```
+			
+			        CALCULATE(DIVIDE([1.07 Qtd. Votos Deputados Federais Candidatos+Legenda],[1.08 Votos Deputados Federais Candidatos s/Filtro],0),REMOVEFILTERS(d_estado))
+			```
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 80c5f28a-39a6-4c64-92a9-f38735fb04f5
+
+	measure '5.08 Objetivos 1' = IF(AND([5.00 % Votos Deputados Federais Candidatos s/filtro UF]>=0.02,[5.02 Qtd. Estados com mais de 1% de Votos]>=9),1,0)
+		formatString: 0
+		displayFolder: 5. Análises Estaduais
+		lineageTag: 75e85b62-8d93-4478-ad36-cec0193c59cb
+
+	measure '5.09 Objetivos 2' = IF(AND([5.03  Qtd. Deputados Federais Eleitos 2022]>=11,[5.01 Qtd. UF com Deputados Eleitos]>=9),1,0)
+		formatString: 0
+		displayFolder: 5. Análises Estaduais
+		lineageTag: dc455fb1-1a05-49b3-8348-a22b8ec22741
+
+	measure '3.04 TempoPropaganda' =
+			
+			var TotalTempoDisponivel = 1500
+			VAR Percentual = [5.06 % Tempo de TV e Rádio]
+			VAR TempoEmSegundos = Percentual * TotalTempoDisponivel
+			VAR Minutos = INT(TempoEmSegundos / 60)
+			VAR Segundos = ROUND(MOD(TempoEmSegundos, 60),0)
+			RETURN
+			Minutos & "m" & Segundos & "s"
+		displayFolder: 3. Recursos
+		lineageTag: 01a1b130-4071-4f2c-9e4b-55f574b6edd8
+
+	measure '1.10 Votos Deputados Federais Lista' =
+			SUMX(
+			    f_candidatos_2022,
+			    COALESCE(
+			    CALCULATE(
+			            SUM(f_candidatos_2022[qt_votos_nominais_validos])),0))
+		formatString: #,0
+		displayFolder: 1. Mandatários e Votos Deputados
+		lineageTag: 186d3e3b-6934-4022-b860-2e5269bcfa9f
+
+	measure '6.01 Qtd. Governador' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="GOVERNADOR"),
+			        0
+			    )
+			```
+		formatString: #,0
+		displayFolder: 6. Mandatários
+		lineageTag: 4da6cb0b-4d22-4156-a479-fdd3669e8558
+
+	measure '6.02 Qtd. Prefeito' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="PREFEITO"),
+			        0
+			    )
+			```
+		formatString: #,0
+		displayFolder: 6. Mandatários
+		lineageTag: 221efc6e-a3cc-4df9-9df6-a0afa2639538
+
+	measure '6.03 Qtd. Vice-Prefeito' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="VICE-PREFEITO"),
+			        0
+			    )
+			```
+		formatString: #,0
+		displayFolder: 6. Mandatários
+		lineageTag: f59225dd-539f-42a8-947b-57444fa5c348
+
+	measure '6.04 Qtd. Vereador' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="VEREADOR"),
+			        0
+			    )
+			```
+		formatString: #,0
+		displayFolder: 6. Mandatários
+		lineageTag: 4996c7ab-41d1-435d-9c61-3bb883b3972f
+
+	measure '6.05 Qtd. Senador' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="SENADOR"),
+			        0
+			    )
+			```
+		formatString: 0
+		displayFolder: 6. Mandatários
+		lineageTag: 4f0dc1a9-5f30-4501-882e-76ec9ca751a5
+
+	measure '6.06 Qtd. Deputado Estadual' = ```
+			
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			            f_mdt_mandatarios_atuais[cargo]="DEPUTADO ESTADUAL"),
+			        0
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: 6. Mandatários
+		lineageTag: e0971509-c031-419a-8807-3ac254843e08
+
+	measure '6.7 cargo_selecionado' =
+			
+			var c = CALCULATE(SELECTEDVALUE(f_mdt_mandatarios_atuais[cargo]))
+			RETURN
+			UPPER(LEFT(c, 1)) & LOWER(MID(c, 2, LEN(c)))
+		displayFolder: 6. Mandatários
+		lineageTag: dad5ab71-232d-4375-9f2b-f97a9165a746
+
+	measure '7.01 Data Atual - Filiados' = MAX(f_filiados_2024[mes_ano])
+		formatString: mmmm" de "yyyy
+		displayFolder: 7. Datas de Atualizações
+		lineageTag: ccbdeffd-7e64-44fb-9aaf-9d77b84d9350
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	measure '7.02 Data Atual - Fundo Partidário' = MAX(f_fundo_partidario[data_consulta])
+		formatString: dd/mm/yy
+		displayFolder: 7. Datas de Atualizações
+		lineageTag: 2c4c14c8-144f-4e4b-be66-c1fb078e85c0
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	measure '8.01 Qtd. Órgãos Municipais' = COALESCE(CALCULATE(DISTINCTCOUNT(f_orgaos_vigentes[sqOrgaoPartidario]), f_orgaos_vigentes[abrangencia]="Municipal"),0)
+		formatString: 0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: 09703ff1-dd9e-4829-bbbf-e6c3aa2197b3
+
+	measure '8.02 Qtd. Municípios com Órgãos' = ```
+			
+			    COALESCE(CALCULATE(DISTINCTCOUNT(d_local_municipio[cod_tse]),FILTER(d_local_municipio,[8.01 Qtd. Órgãos Municipais]>=1)),0)
+			```
+		formatString: #,0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: aefe6912-47be-4ba9-9506-fa798ee7417d
+
+	measure '8.03 % Municípios com Órgãos' = DIVIDE([8.02 Qtd. Municípios com Órgãos],CALCULATE(DISTINCTCOUNT(d_local_municipio[cod_tse])),0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: 4a05b2a8-56b5-4e05-b536-c65621c3f54a
+
+	measure '8.04 Cobertura Eleitoral' = COALESCE(CALCULATE(SUM(d_local_municipio[qt_eleitor]),FILTER(d_local_municipio,[8.01 Qtd. Órgãos Municipais]>=1)),0)
+		formatString: #,0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: cfc4ad93-e9dc-4dbb-b2c0-3b9b1aa05f6d
+
+	measure '8.05 % Eleitores com Órgãos' = DIVIDE([8.04 Cobertura Eleitoral],CALCULATE(SUM(d_local_municipio[qt_eleitor])),0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: 89e2e865-b3d9-4cdc-b8d7-dba58db90dbc
+
+	measure '8.01 Qtd. Órgãos - Mapa' = SUMX(d_local_municipio,COALESCE(CALCULATE(DISTINCTCOUNT(f_orgaos_vigentes[sqOrgaoPartidario]), f_orgaos_vigentes[abrangencia]="Municipal"),0))
+		formatString: 0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: df461b67-267f-47c7-962d-58d7db708df6
+
+	measure '8.04 Cobertura Eleitoral Simulacao Gráfico' = ```
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			VAR PartidoAtual = SELECTEDVALUE(s_partidos_federacao[partido])
+			RETURN
+			IF(
+			    PartidoAtual = "SIMULAÇÃO",
+			    CALCULATE(
+			        [8.04 Cobertura Eleitoral],
+			        d_partidos[partido] IN PartidosSelecionados
+			    ),
+			    IF(
+			        NOT(PartidoAtual IN PartidosSelecionados),
+			        CALCULATE(
+			            [8.04 Cobertura Eleitoral],
+			            d_partidos[partido] = PartidoAtual
+			        ),
+			        BLANK()
+			    )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: 0523761a-5c62-47f8-b6a2-5ba6053c29b5
+
+	measure '8.02 Qtd. Municipios com Órgão Simulacao Gráfico' = ```
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			VAR PartidoAtual = SELECTEDVALUE(s_partidos_federacao[partido])
+			RETURN
+			IF(
+			    PartidoAtual = "SIMULAÇÃO",
+			    CALCULATE(
+			        [8.02 Qtd. Municípios com Órgãos],
+			        d_partidos[partido] IN PartidosSelecionados
+			    ),
+			    IF(
+			        NOT(PartidoAtual IN PartidosSelecionados),
+			        CALCULATE(
+			            [8.02 Qtd. Municípios com Órgãos],
+			            d_partidos[partido] = PartidoAtual
+			        ),
+			        BLANK()
+			    )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: a188e6da-918b-472f-bac9-7c8c9ff9233d
+
+	measure '4.02 Partidos Selecionados' =
+			VAR Partidos = VALUES(d_partidos[partido])
+			RETURN
+			CONCATENATEX(Partidos, d_partidos[partido], "+")
+		displayFolder: 4. Configurações
+		lineageTag: 9c47b5b1-c657-4d41-8b69-8d7ae2fc607e
+
+	measure '8.05 % Eleitores com Órgãos Simulação' = FORMAT(DIVIDE([8.04 Cobertura Eleitoral Simulacao Gráfico],CALCULATE(SUM(d_local_municipio[qt_eleitor])),0),"(00.0%)")
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: e2094168-b063-4912-9ebe-4df9eb040263
+
+	measure '8.03 % Municípios com Órgãos Simulação' = FORMAT(DIVIDE([8.02 Qtd. Municipios com Órgão Simulacao Gráfico],CALCULATE(DISTINCTCOUNT(d_local_municipio[cod_tse])),0),"(00.0%)")
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: 37bda056-d715-41c2-8e52-1a5f6f6ea298
+
+	measure '8.02 Qtd. Municípios com Conflito de Órgãos' = ```
+			
+			    COALESCE(CALCULATE(DISTINCTCOUNT(d_local_municipio[cod_tse]),FILTER(d_local_municipio,[8.01 Qtd. Órgãos Municipais]>1)),0)
+			```
+		formatString: #,0
+		displayFolder: 8. Órgãos Partidários
+		lineageTag: c5a2782c-8482-4591-b625-60bac03f011a
+
+	measure '9.01 Qtd. Votos Válidos Última Eleição Card' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK([9.01 Qtd. Votos Válidos Última Eleição]), FORMAT(0,"0"),
+			    [9.01 Qtd. Votos Válidos Última Eleição] < 10, FORMAT([9.01 Qtd. Votos Válidos Última Eleição], "0"),
+			    FORMAT([9.01 Qtd. Votos Válidos Última Eleição], "#,0"))
+			
+			```
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 90891790-17a6-4821-a1fc-52825db7f946
+
+	measure '9.10 ultimo_ano' =
+			CALCULATE(
+			    MAX(f_historico_eleicoes[aa_eleicao]),
+			    REMOVEFILTERS(d_partidos[partido]),
+			    REMOVEFILTERS(f_historico_eleicoes[sq_candidato]),
+			    FILTER(
+			        ALLSELECTED(f_historico_eleicoes),
+			        f_historico_eleicoes[ds_cargo]=[9.09 cargo_selecionado]))
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 6708503c-9e2b-491e-8753-e43be8b6a341
+
+	measure '9.02 % Votos Válidos Última Eleição' =
+			
+			VAR ultimo_ano = MAX(f_historico_eleicoes[aa_eleicao])
+			var denominador = COALESCE(
+			    CALCULATE(
+			        SUM(f_historico_eleicoes[qt_votos_nom_validos]),
+			        f_historico_eleicoes[aa_eleicao]=ultimo_ano,
+			        REMOVEFILTERS(d_partidos[partido])),
+			    0)
+			RETURN
+			FORMAT(DIVIDE([9.01 Qtd. Votos Válidos Última Eleição Card],denominador,0),"(0.0%)")
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 1d2dc9f6-ebfe-40ae-9b61-e1d2eeb0cd2b
+
+	measure '9.03 Qtd. Eleitos Última Eleição' =
+			
+			VAR ultimo_ano = CALCULATE(MAX(f_historico_eleicoes[aa_eleicao]),REMOVEFILTERS(d_partidos[partido]))
+			VAR qtd_eleitos = COALESCE(
+			    CALCULATE(
+			        DISTINCTCOUNT(f_historico_eleicoes[sq_candidato]),
+			        f_historico_eleicoes[ds_sit_totalizacao]="Eleito",
+			        f_historico_eleicoes[aa_eleicao]=ultimo_ano
+			    ),
+			    0
+			)
+			RETURN
+			IF(
+			    qtd_eleitos < 10,
+			    FORMAT(qtd_eleitos, "0"),  // Mantém sem zero à esquerda para números menores que 10
+			    FORMAT(qtd_eleitos, "#,0") // Usa separador de milhares para números grandes
+			)
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 7ea7b3f0-7291-4ab3-8b3a-f4e1ed99a8fe
+
+	measure '9.04 % Eleitos Última Eleição' =
+			
+			VAR ultimo_ano = MAX(f_historico_eleicoes[aa_eleicao])
+			var denominador = COALESCE(
+			    CALCULATE(
+			        DISTINCTCOUNT(f_historico_eleicoes[sq_candidato]),
+			        f_historico_eleicoes[ds_sit_totalizacao]="Eleito",
+			        f_historico_eleicoes[aa_eleicao]=ultimo_ano,
+			        REMOVEFILTERS(d_partidos[partido])),
+			    0)
+			RETURN
+			FORMAT(DIVIDE([9.03 Qtd. Eleitos Última Eleição],denominador,0),"(0.0%)")
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 971e6e4c-34b3-4218-b004-1fb0cde5112d
+
+	measure '9.06 Qtd. Votos Obtidos Histórico' = ```
+			
+			    CALCULATE(
+			        SUM(f_historico_eleicoes[qt_votos_nom_validos]))
+			```
+		formatString: #,0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: d4e22812-eceb-4191-9077-ce22e7d0a0e4
+
+	measure '9.05 Qtd. Eleitos Histórico' = ```
+			
+			    CALCULATE(
+			        DISTINCTCOUNT(f_historico_eleicoes[sq_candidato]),f_historico_eleicoes[ds_sit_totalizacao]="Eleito")
+			```
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 34ae67c5-537a-4ebc-8e14-40e4463d125b
+
+	measure '9.01 Qtd. Votos Válidos Última Eleição - Mapa' = ```
+			
+			VAR ultimo_ano = CALCULATE(MAX(f_historico_eleicoes[aa_eleicao]),REMOVEFILTERS(d_partidos[partido])) 
+			RETURN
+			SUMX(
+			    d_local_municipio,
+			    COALESCE(
+			        CALCULATE(
+			            SUM(f_historico_eleicoes[qt_votos_nom_validos]),
+			            f_historico_eleicoes[aa_eleicao]=ultimo_ano),
+			        0))
+			```
+		formatString: #,0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 9e18cc68-4d4e-4186-8ed7-8c744ed60a0b
+
+	measure '9.01 Qtd. Votos Válidos Última Eleição' = ```
+			
+			VAR ultimo_ano = CALCULATE(MAX(f_historico_eleicoes[aa_eleicao]),REMOVEFILTERS(d_partidos[partido])) 
+			RETURN
+			        CALCULATE(
+			            SUM(f_historico_eleicoes[qt_votos_nom_validos]),
+			            f_historico_eleicoes[aa_eleicao]=ultimo_ano)
+			```
+		formatString: #,0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: fae894d9-5536-4ea2-98db-8a5a3d22ce2a
+
+	measure '9.ee Ranking Candidatos' = ```
+			
+			RANKX(
+			    VALUES(f_historico_eleicoes[sq_candidato]),
+			    [9.01 Qtd. Votos Válidos Última Eleição],
+			    ,
+			    DESC,
+			    DENSE
+			)
+			
+			```
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 9357249f-ba73-450a-8ee6-02e2b5b0ebca
+
+	measure '9.07 Qtd. Mandatários por Municípios' =
+			
+			VAR mandatarios_presentes = SWITCH(
+			    TRUE(),
+			    ([6.01 Qtd. Governador]+[6.05 Qtd. Senador]+[6.06 Qtd. Deputado Estadual]+[1.01 Qtd. Deputados Federais])>0,1,
+			    ([6.02 Qtd. Prefeito]+[6.03 Qtd. Vice-Prefeito]+[6.04 Qtd. Vereador])>0,2,
+			    0)
+			RETURN
+			SUMX(
+			    d_local_municipio,
+			    CALCULATE(mandatarios_presentes))
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 38a0c4e3-a012-4259-b419-127b897b9c27
+
+	measure '9.08 Votação Chapa Simulação Gráfico' =
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			VAR PartidoAtual = SELECTEDVALUE(s_partidos_federacao[partido])
+			RETURN
+			IF(
+			    PartidoAtual = "SIMULAÇÃO",
+			    CALCULATE(
+			        [9.08 Votos Chapa],
+			        d_partidos[partido] IN PartidosSelecionados
+			    ),
+			    IF(
+			        NOT(PartidoAtual IN PartidosSelecionados),
+			        CALCULATE(
+			            [9.01 Qtd. Votos Válidos Última Eleição],
+			            d_partidos[partido] = PartidoAtual
+			        ),
+			        BLANK()
+			    )
+			)
+		formatString: #,0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 335fb4fd-b639-4753-9615-7306d2b0e0de
+
+	measure '9.09 cargo_selecionado' = SELECTEDVALUE(f_historico_eleicoes[ds_cargo])
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 595126a5-62d7-4cdb-a70d-b449af544325
+
+	measure '9.08 Votos Chapa' = ```
+			
+			VAR CargoDesejado = [9.09 cargo_selecionado]
+			VAR VagasDisponiveis = 
+			    SWITCH(
+			      CargoDesejado,
+			      "Deputado Estadual",   MAX(d_estado[vagas_dep_est]),
+			      "Deputado Distrital",  MAX(d_estado[vagas_dep_est]),
+			      "Deputado Federal",    MAX(d_estado[vagas_dep_fed]),
+			      "Vereador",            MAX(d_local_municipio[vagas_vereador]),
+			      "Prefeito",            0
+			    ) + 1
+			
+			VAR AnoSel = [9.10 ultimo_ano]
+			
+			// 1) Filtro base: cargo + ano (mantém filtros de município/estado via ALLSELECTED)
+			VAR FiltroBase =
+			    FILTER(
+			      ALLSELECTED(f_historico_eleicoes),
+			      f_historico_eleicoes[ds_cargo]   = CargoDesejado &&
+			      f_historico_eleicoes[aa_eleicao] = AnoSel
+			    )
+			
+			// 2) Agrupa por candidato, somando todos os votos (por município ou global conforme filtros externos)
+			VAR TabelaAgrupada =
+			    SUMMARIZE(
+			      FiltroBase,
+			      f_historico_eleicoes[sq_candidato],
+			      f_historico_eleicoes[nm_urna_candidato],
+			      "TotalVotos", SUM(f_historico_eleicoes[qt_votos_nom_validos])
+			    )
+			
+			// 3) Adiciona ranking sobre o TotalVotos
+			VAR TabelaComRank =
+			    ADDCOLUMNS(
+			      TabelaAgrupada,
+			      "RankingVotos",
+			      RANKX(
+			        TabelaAgrupada,
+			        [TotalVotos],
+			        ,
+			        DESC,
+			        Skip   // empata coloca no mesmo ranking
+			      )
+			    )
+			
+			// 4) Filtra os top X candidatos
+			VAR TopCandidatos =
+			    FILTER(
+			      TabelaComRank,
+			      [RankingVotos] <= VagasDisponiveis
+			    )
+			
+			// 5) Soma os votos desses top candidatos
+			RETURN
+			    SUMX( TopCandidatos, [TotalVotos] )
+			```
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: c6214834-9bff-47d1-9e87-b51f0152c87c
+
+	measure '9.11 Filtrar Cargos Historico Eleicao' = ```
+			
+			VAR MunicipiosSelecionados = DISTINCTCOUNT(d_local_municipio[cod_tse])
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    MunicipiosSelecionados = 1 && SELECTEDVALUE(f_historico_eleicoes[ds_cargo]) IN {"Vereador", "Prefeito", "Deputado Federal", "Deputado Estadual", "Deputado Distrital"}, 1,
+			    MunicipiosSelecionados > 1 && SELECTEDVALUE(f_historico_eleicoes[ds_cargo]) IN {"Deputado Federal", "Deputado Estadual", "Deputado Distrital", "Prefeito"}, 1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 1188f975-ce9d-4500-a050-2c9b45503acd
+
+	measure '9.12 Valor Investido na Região' =
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			RETURN
+			COALESCE(CALCULATE(
+			    SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			    REMOVEFILTERS(d_partidos),
+			    f_investimento_partido_candidato[SG_PARTIDO] IN PartidosSelecionados),0)
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		displayFolder: 9. Histórico Eleições
+		lineageTag: ea79b9ec-ff2d-4786-92d7-1f1526523ccf
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '9.13 Valor Investido no Próprio Candidato' =
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			RETURN
+			    COALESCE(
+			        CALCULATE(
+			        SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			        f_investimento_partido_candidato[SG_PARTIDO] IN PartidosSelecionados,
+			        f_investimento_partido_candidato[PARTIDO_CANDIDATO] IN PartidosSelecionados,
+			        f_investimento_partido_candidato[SG_PARTIDO] = f_investimento_partido_candidato[PARTIDO_CANDIDATO]
+			),0)
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 319c5a02-d1b2-42d6-9545-4679c5f75066
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '9.14 Valor Investido entre Partidos da Simulação' =
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			RETURN
+			SUMX(
+			    f_investimento_partido_candidato,
+			    COALESCE(
+			        CALCULATE(
+			        SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			        f_investimento_partido_candidato[SG_PARTIDO] IN PartidosSelecionados,
+			        f_investimento_partido_candidato[PARTIDO_CANDIDATO] IN PartidosSelecionados
+			    ),0))-[9.13 Valor Investido no Próprio Candidato - Tooltip]
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		displayFolder: 9. Histórico Eleições
+		lineageTag: e51d6a54-f48b-408e-a519-6ce819b21c74
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '4.03 Município Selecionado' = CALCULATE(SELECTEDVALUE(d_local_municipio[nome_municipio]))
+		displayFolder: 4. Configurações
+		lineageTag: 044e1de9-b9b8-4fba-a16f-a3af9bfb56e3
+
+	measure 'Soma Vereadores Auditoria' =
+			
+			var PP = CALCULATE(
+			    SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			    REMOVEFILTERS(d_partidos),
+			    f_investimento_partido_candidato[PARTIDO_CANDIDATO]in {"PP"},
+			    f_investimento_partido_candidato[CARGO_CANDIDATO]="Vereador",
+			    f_investimento_partido_candidato[SG_PARTIDO] in {"UNIÃO"})
+			
+			var UNIAO = CALCULATE(
+			    SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			    REMOVEFILTERS(d_partidos),
+			    f_investimento_partido_candidato[PARTIDO_CANDIDATO]in {"UNIÃO"},
+			    f_investimento_partido_candidato[CARGO_CANDIDATO]="Vereador",
+			    f_investimento_partido_candidato[SG_PARTIDO] in {"PP"})
+			
+			RETURN
+			UNIAO
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 9843e23c-2d3f-48c8-9ee5-b3a9d86b5e54
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '4.04 Presença Partido Órgãos' =
+			
+			var partidos = VALUES(f_orgaos_vigentes[sigla])
+			VAR contador = COUNTROWS(partidos)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    contador>1,"CONFLITO: "&UNICHAR(10)&CONCATENATEX(partidos, f_orgaos_vigentes[sigla], ", "),
+			    contador=1,partidos,
+			    "SEM PRESENÇA")
+		lineageTag: 2bd37bd4-9975-4c8a-81a5-3113b8a7cace
+
+	measure '4.05 Qtd. Órgãos Presentes' =
+			
+			COUNTROWS(VALUES(f_orgaos_vigentes[sigla]))
+		formatString: 0
+		lineageTag: 119a1e20-c9c4-4925-85de-3188b93a3949
+
+	measure '4.06 UF - Município Selecionado' = CALCULATE(SELECTEDVALUE(d_estado[uf]))&" - "&CALCULATE(SELECTEDVALUE(d_local_municipio[nome_municipio]))
+		lineageTag: 22710f55-0cf5-4f0e-bc04-65fccb50cf87
+
+	measure '9.13 Valor Investido no Próprio Candidato - Tabela' =
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			VAR InvestimentoPorCandidato =
+			    SUMMARIZE(
+			        f_historico_eleicoes,
+			        f_historico_eleicoes[sq_candidato],
+			        f_historico_eleicoes[nm_urna_candidato],
+			        "ValorInvestido",
+			        CALCULATE(
+			            SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			            f_investimento_partido_candidato[SG_PARTIDO] IN PartidosSelecionados,
+			            f_investimento_partido_candidato[PARTIDO_CANDIDATO] IN PartidosSelecionados,
+			            f_investimento_partido_candidato[SG_PARTIDO] = f_investimento_partido_candidato[PARTIDO_CANDIDATO]
+			        )
+			    )
+			RETURN
+			SUMX(
+			    InvestimentoPorCandidato,
+			    COALESCE([ValorInvestido], 0)
+			)
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		displayFolder: 9. Histórico Eleições
+		lineageTag: ff095554-4505-464d-bf2e-acce60dec9a9
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '9.13 Valor Investido no Próprio Candidato - Tooltip' =
+			
+			VAR PartidosSelecionados = VALUES(d_partidos[partido])
+			RETURN
+			SUMX(
+			    f_investimento_partido_candidato,
+			    COALESCE(
+			        CALCULATE(
+			        SUM(f_investimento_partido_candidato[VR_RECEITA]),
+			        f_investimento_partido_candidato[SG_PARTIDO] IN PartidosSelecionados,
+			        f_investimento_partido_candidato[PARTIDO_CANDIDATO] IN PartidosSelecionados,
+			        f_investimento_partido_candidato[SG_PARTIDO] = f_investimento_partido_candidato[PARTIDO_CANDIDATO]
+			),0))
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		displayFolder: 9. Histórico Eleições
+		lineageTag: 4c91a6f9-18e9-4893-8cd7-8075754b2143
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '9.15 Presença de Candidatos Conflitantes' =
+			
+			VAR AnoSel = CALCULATE(MAX(f_historico_eleicoes[aa_eleicao]),REMOVEFILTERS(d_partidos[partido]),REMOVEFILTERS(d_eleicao_analise),REMOVEFILTERS(f_historico_eleicoes[ds_cargo]))
+			RETURN
+			SUMX(
+			    d_local_municipio,
+			    COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT( f_historico_eleicoes[sg_partido] ),
+			            REMOVEFILTERS(d_eleicao_analise[ano_filtro]),
+			            REMOVEFILTERS(d_eleicao_analise[ds_cargo]),
+			            REMOVEFILTERS(f_historico_eleicoes[ds_cargo]),
+			            f_historico_eleicoes[aa_eleicao] = AnoSel,
+			            f_historico_eleicoes[ds_cargo]="Prefeito"
+			),0))
+		formatString: 0
+		displayFolder: 9. Histórico Eleições
+		lineageTag: d1808b8f-7f98-45ff-b571-6482d1db719d
+
+	measure VagasDisponiveis = ```
+			
+			    SWITCH(
+			        [9.09 cargo_selecionado],
+			        "Deputado Estadual", MAX(d_estado[vagas_dep_est]),
+			        "Deputado Distrital", MAX(d_estado[vagas_dep_est]),
+			        "Deputado Federal", MAX(d_estado[vagas_dep_fed]),
+			        "Vereador", MAX(d_local_municipio[vagas_vereador]),
+			        "Prefeito", 1
+			    )+1
+			```
+		formatString: 0
+		lineageTag: e404013e-3ffa-4f44-a94d-1bdc47d2c22d
+
+	measure '6.08 Conflito Partidos com Mandatário Estratégico' =
+			
+			var f = COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[partido_atual]),
+			            f_mdt_mandatarios_atuais[cargo]="DEPUTADO FEDERAL"),
+			        0
+			    )
+			var e = COALESCE(
+			        CALCULATE(
+			            DISTINCTCOUNT(f_mdt_mandatarios_atuais[partido_atual]),
+			            f_mdt_mandatarios_atuais[cargo]="DEPUTADO ESTADUAL"),
+			        0
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    f>1 && e>1, 3,
+			    f>1,2,
+			    e>1,1,
+			    0)
+		formatString: 0
+		displayFolder: 6. Mandatários
+		lineageTag: d05058af-7347-4545-8088-a73e43ad6cd7
+
+	measure '6.09 Cargos Conflito' =
+			
+			SWITCH(
+			    TRUE(),
+			    [6.08 Conflito Partidos com Mandatário Estratégico]==1, "Deputado Estadual",
+			    [6.08 Conflito Partidos com Mandatário Estratégico]==2, "Deputado Federal",
+			    [6.08 Conflito Partidos com Mandatário Estratégico]==3, "Dep. Federal e Dep. Estadual",
+			    "Estado sem Conflito")
+		lineageTag: 9ddd4b06-6d75-46d8-a3ac-8d9455cf1d5e
+
+	measure '6.10 Mandatário Atual' =
+			CALCULATE(
+			    DISTINCTCOUNT(f_mdt_mandatarios_atuais[sq_candidato]),
+			    f_mdt_mandatarios_atuais[sq_candidato]=SELECTEDVALUE(f_historico_eleicoes[sq_candidato])
+			    )
+		formatString: 0
+		lineageTag: b8579066-efbc-4835-b20a-56b9f0e1a281
+
+	measure 'Candidatos na Cidade' =
+			
+			VAR CidadeAtual = SELECTEDVALUE(f_historico_eleicoes[cod_tse])
+			RETURN
+			CALCULATE(
+			    DISTINCTCOUNT( f_historico_eleicoes[sq_candidato] ),
+			    ALLSELECTED( f_historico_eleicoes ),           // ignora filtros do visual (cod_tse, nr_turno, nm_urna_candidato…)
+			    f_historico_eleicoes[cod_tse] = CidadeAtual   // reaplica o filtro apenas por município
+			)
+		formatString: 0
+		lineageTag: 3f8afa59-967a-400d-8a3c-a0aae44d4d1b
+
+	measure 'Emoji Mouse' = "🔍"
+		lineageTag: 2521165b-f654-4bd6-93dd-b4caf92f8c37
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

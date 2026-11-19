@@ -1,0 +1,139 @@
+table f_historico_eleicoes
+	excludeFromModelRefresh
+	lineageTag: 815e8c4e-9a79-4c74-ac2c-6b2421d08133
+
+	column ds_cargo
+		dataType: string
+		lineageTag: 4dfa5be7-f732-4254-8fa8-fc9dd16e0ba8
+		summarizeBy: none
+		sourceColumn: ds_cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_urna_candidato
+		dataType: string
+		lineageTag: 6ccddc9a-5793-4d7b-9922-039263eb0cc8
+		summarizeBy: none
+		sourceColumn: nm_urna_candidato
+
+		annotation SummarizationSetBy = Automatic
+
+	column sg_partido
+		dataType: string
+		lineageTag: 7d87d967-0e05-4a68-9944-84ae522febd2
+		summarizeBy: none
+		sourceColumn: sg_partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_composicao_coligacao
+		dataType: string
+		lineageTag: c34316d6-0302-4808-8aa1-c6a36933c21e
+		summarizeBy: none
+		sourceColumn: ds_composicao_coligacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr_turno
+		dataType: int64
+		formatString: 0
+		lineageTag: af9c80b0-a05f-43bf-adef-df3382bb7d51
+		summarizeBy: sum
+		sourceColumn: nr_turno
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_sit_totalizacao
+		dataType: string
+		lineageTag: 7a7342fb-659d-4c08-b7f5-3c75081fdd3d
+		summarizeBy: none
+		sourceColumn: ds_sit_totalizacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column sq_candidato
+		dataType: string
+		lineageTag: ced75a51-d6ba-495a-8ad1-cc052fefa3d1
+		summarizeBy: none
+		sourceColumn: sq_candidato
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column aa_eleicao
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a23e5fc-b50a-4f4c-8822-d97ef70baec1
+		summarizeBy: sum
+		sourceColumn: aa_eleicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column pc_votos_validos
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 030a35b3-2fd6-454a-8ba3-2ed84c32fa6a
+		summarizeBy: sum
+		sourceColumn: pc_votos_validos
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nom_validos
+		dataType: int64
+		formatString: #,0
+		lineageTag: a8bcacdf-d58c-4e3f-b154-4bd959f996e7
+		summarizeBy: sum
+		sourceColumn: qt_votos_nom_validos
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tse
+		dataType: string
+		lineageTag: 7af5e44b-bced-4df0-8905-43a67127ff63
+		summarizeBy: none
+		sourceColumn: cod_tse
+
+		annotation SummarizationSetBy = Automatic
+
+	column foto_url
+		dataType: string
+		lineageTag: 30deb892-633e-4fc8-a72c-9a253210555f
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: foto_url
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordem_cargo =
+			SWITCH(true(),
+			    [ds_cargo]="Deputado Federal",1,
+			    [ds_cargo]="Deputado Estadual",2,
+			    [ds_cargo]="Deputado Distrital",2,
+			    [ds_cargo]="Vereador", 4,
+			    [ds_cargo]="Prefeito",3,
+			    4)
+		formatString: 0
+		lineageTag: 2b76ad23-98fc-45e0-9f26-64385bb2c461
+		summarizeBy: sum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_historico_eleicoes = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_historico_eleicoes.parquet")
+				                     otherwise try File.Contents("..\data\f_historico_eleicoes.parquet")
+				                     otherwise File.Contents("data\f_historico_eleicoes.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo),
+				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"ordem_cargo"}, MissingField.Ignore)
+				in
+				    #"Colunas Calculadas Removidas"
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

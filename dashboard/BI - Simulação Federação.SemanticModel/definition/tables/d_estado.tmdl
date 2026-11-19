@@ -1,0 +1,76 @@
+table d_estado
+	lineageTag: 5045539c-b549-4653-a692-27e3b9582d62
+
+	column nome_uf
+		dataType: string
+		lineageTag: e7129570-7670-40fe-949c-c7996860298a
+		summarizeBy: none
+		sourceColumn: nome_uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: 308c436a-56ee-403f-b489-3a86f1d7618f
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_uf_mapa
+		dataType: string
+		lineageTag: 53431fd1-f948-4fc1-a074-484bfec0b865
+		summarizeBy: none
+		sourceColumn: nome_uf_mapa
+
+		annotation SummarizationSetBy = Automatic
+
+	column vagas_dep_fed =
+			
+			var cargo = {"Deputado Federal"}
+			VAR ultima_eleicoes = CALCULATE(MAX(f_historico_eleicoes[aa_eleicao]),f_historico_eleicoes[ds_cargo] in {cargo})
+			var qtd_vags = CALCULATE(DISTINCTCOUNT(f_historico_eleicoes[sq_candidato]),f_historico_eleicoes[aa_eleicao]=ultima_eleicoes,f_historico_eleicoes[ds_sit_totalizacao]="Eleito",f_historico_eleicoes[ds_cargo] in {cargo})
+			RETURN
+			qtd_vags
+		formatString: 0
+		lineageTag: 31250f11-673e-488b-a57d-afe2b09b0a7e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column vagas_dep_est =
+			
+			VAR ultima_eleicoes = CALCULATE(
+			    MAX(f_historico_eleicoes[aa_eleicao]),
+			    f_historico_eleicoes[ds_cargo] = "Deputado Estadual" || f_historico_eleicoes[ds_cargo] = "Deputado Distrital"
+			)
+			VAR qtd_vags = CALCULATE(
+			    DISTINCTCOUNT(f_historico_eleicoes[sq_candidato]),
+			    f_historico_eleicoes[aa_eleicao] = ultima_eleicoes,
+			    f_historico_eleicoes[ds_sit_totalizacao] = "Eleito",
+			    f_historico_eleicoes[ds_cargo] = "Deputado Estadual" || f_historico_eleicoes[ds_cargo] = "Deputado Distrital"
+			)
+			RETURN
+			qtd_vags
+		formatString: 0
+		lineageTag: 892ce03e-4146-42e5-a4e2-1529ac509215
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_estado = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "d_estado.parquet")
+				                     otherwise try File.Contents("..\data\d_estado.parquet")
+				                     otherwise File.Contents("data\d_estado.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo),
+				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"vagas_dep_fed", "vagas_dep_est"}, MissingField.Ignore)
+				in
+				    #"Colunas Calculadas Removidas"
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

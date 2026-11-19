@@ -1,0 +1,154 @@
+table d_local_municipio
+	lineageTag: e062b66e-fc2f-45ca-a2d4-d2eba3575424
+
+	column localidade_id
+		dataType: int64
+		formatString: 0
+		lineageTag: df969d4b-86fb-4162-9f1d-89bfc707d449
+		summarizeBy: sum
+		sourceColumn: localidade_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_uf
+		dataType: string
+		lineageTag: a898082e-38b6-4e7c-9039-5515835ab983
+		summarizeBy: none
+		sourceColumn: nome_uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: d820f9e8-a1cc-4818-be38-810e32ea2918
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tse
+		dataType: string
+		lineageTag: cdecd7bf-3923-4367-8402-88a1dd9d3091
+		summarizeBy: none
+		sourceColumn: cod_tse
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_ibge
+		dataType: string
+		lineageTag: 17cd5abe-e949-4066-aeea-b36f8b4c12cb
+		summarizeBy: none
+		sourceColumn: cod_ibge
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_municipio
+		dataType: string
+		lineageTag: 8247d59a-05d1-4365-8ea8-ff07403c6c49
+		summarizeBy: none
+		sourceColumn: nome_municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column capital
+		dataType: string
+		lineageTag: 9117a234-f991-4849-b6f5-4920aa3dc473
+		summarizeBy: none
+		sourceColumn: capital
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_eleitor
+		dataType: int64
+		formatString: 0
+		lineageTag: a6984507-319c-4160-997a-9428b639da8f
+		summarizeBy: sum
+		sourceColumn: qt_eleitor
+
+		annotation SummarizationSetBy = Automatic
+
+	column populacao
+		dataType: int64
+		formatString: #,0
+		lineageTag: 26719ac6-b224-43c6-a98f-e298b76250c6
+		summarizeBy: sum
+		sourceColumn: populacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column vagas_vereador
+		dataType: int64
+		formatString: 0
+		lineageTag: a09d9c51-5720-41b7-8dea-452555fee7c3
+		summarizeBy: sum
+		sourceColumn: vagas_vereador
+
+		annotation SummarizationSetBy = Automatic
+
+	column mesorregiao_geografica
+		dataType: double
+		lineageTag: 6afb00e1-a68f-4363-8c17-308697c051f6
+		summarizeBy: sum
+		sourceColumn: mesorregiao_geografica
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column nome_mesorregiao
+		dataType: string
+		lineageTag: d8fb29a3-61ff-4e78-9a6f-8f54670de7a3
+		summarizeBy: none
+		sourceColumn: nome_mesorregiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column microrregiao_geografica
+		dataType: double
+		lineageTag: 5af678ef-de3a-4d43-bc6f-c6f6a3d2a892
+		summarizeBy: sum
+		sourceColumn: microrregiao_geografica
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column nome_microrregiao
+		dataType: string
+		lineageTag: 669ba482-3912-4683-b22d-e0dfc04e5ff9
+		summarizeBy: none
+		sourceColumn: nome_microrregiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_faixa_populacional =
+			SWITCH(
+			  TRUE(),
+			  d_local_municipio[populacao] <= 10000, 1,
+			  d_local_municipio[populacao] <= 50000, 2,
+			  d_local_municipio[populacao] <= 100000, 3,
+			  d_local_municipio[populacao] <= 500000, 4,
+			  5
+			)
+		formatString: 0
+		lineageTag: f1e2cb41-a59d-4f76-9b00-7787de8d3b8c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_local_municipio = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "d_local_municipio.parquet")
+				                     otherwise try File.Contents("..\data\d_local_municipio.parquet")
+				                     otherwise File.Contents("data\d_local_municipio.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo),
+				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"cod_faixa_populacional"}, MissingField.Ignore)
+				in
+				    #"Colunas Calculadas Removidas"
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

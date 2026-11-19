@@ -1,0 +1,293 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 559.57781875340675,
+        "y": 169.05674282580264
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1202.6157353177755,
+            "y": 665.69567549888313
+          },
+          "nodeIndex": "f_mdt_mandatarios_atuais",
+          "nodeLineageTag": "4709b5ec-6e7e-42bd-9337-24ff64a6a1f3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 852.3616394153596,
+            "y": 88.1299417275468
+          },
+          "nodeIndex": "d_cor_raca",
+          "nodeLineageTag": "5a3ab1bd-1e2a-4791-b25b-0fb76c8b9e77",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1136.3616394153596,
+            "y": 88.1299417275468
+          },
+          "nodeIndex": "d_genero",
+          "nodeLineageTag": "3eca063f-42e8-4964-9e98-d18229c19894",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 219.03250388531589,
+            "y": 638.15004418402839
+          },
+          "nodeIndex": "d_partidos",
+          "nodeLineageTag": "2475a920-87e2-4a8a-8b05-4ab0a1079d86",
+          "size": {
+            "height": 185.43501671615786,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": -10
+          },
+          "nodeIndex": "f_recursos_partidos_2022",
+          "nodeLineageTag": "e8ab57b4-5f29-40e3-8fbc-33d48288b0ee",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 541.76030594193628,
+            "y": 444.17296165421976
+          },
+          "nodeIndex": "d_local_municipio",
+          "nodeLineageTag": "e062b66e-fc2f-45ca-a2d4-d2eba3575424",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 1410.3616394153596,
+            "y": 388.69982511621311
+          },
+          "nodeIndex": "d_estado",
+          "nodeLineageTag": "5045539c-b549-4653-a692-27e3b9582d62",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1694.3616394153596,
+            "y": 412.69982511621311
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "1366c0dc-a825-4360-aafb-c2515a6dbed3",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 699.61432676558468,
+            "y": 924.42877386671557
+          },
+          "nodeIndex": "f_candidatos_2022",
+          "nodeLineageTag": "7d01d48e-c6bd-419b-9495-8a104b93a44e",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1642.6215725507275,
+            "y": 969.85922153052866
+          },
+          "nodeIndex": "f_votos_partido_uf",
+          "nodeLineageTag": "70141ea2-4ee6-4427-9863-c58ce6193472",
+          "size": {
+            "height": 391.6458666160222,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 1462.729271878685,
+            "y": 72.117430844220962
+          },
+          "nodeIndex": "f_fefc",
+          "nodeLineageTag": "71b2a5be-798b-4e9f-856a-b7a82f924fdf",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1906.5104903090521,
+            "y": 961.00423883470182
+          },
+          "nodeIndex": "f_fundo_partidario",
+          "nodeLineageTag": "e54d5fe8-479f-40dc-8855-be2365458a93",
+          "size": {
+            "height": 308.43597934351726,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 2526.3616394153596,
+            "y": 567.58453865618594
+          },
+          "nodeIndex": "Data de Atualização",
+          "nodeLineageTag": "dfda33cc-42ca-40d9-a8e9-7a7d9eb7c18a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 336.98399704348833,
+            "y": 1100.8278072019
+          },
+          "nodeIndex": "s_partidos_federacao",
+          "nodeLineageTag": "db978746-ff02-44e6-a09e-346f4c52907d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 26.506119757889792,
+            "y": 1001.3858219028476
+          },
+          "nodeIndex": "f_orgaos_vigentes",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 670.65978678906231,
+            "y": 1274.6825599653739
+          },
+          "nodeIndex": "f_historico_eleicoes",
+          "nodeLineageTag": "815e8c4e-9a79-4c74-ac2c-6b2421d08133",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 1165.5829362898435,
+            "y": 1240.2511547404827
+          },
+          "nodeIndex": "f_partido_distribuicao_municipio_2024",
+          "nodeLineageTag": "737ce311-d9e3-4ae9-9f2b-cfc1d8dd43a7",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 971.167682040171,
+            "y": 1488.7645666944131
+          },
+          "nodeIndex": "f_investimento_partido_candidato",
+          "nodeLineageTag": "dbb73027-51a8-4bad-88c1-d67050b3f806",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 439.87131786003982
+          },
+          "nodeIndex": "d_faixa_pop",
+          "nodeLineageTag": "c073d8c6-af32-4bc3-ba35-7e04b74d0def",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 20
+        },
+        {
+          "location": {
+            "x": 237.44450524275976,
+            "y": 1570.0005942737916
+          },
+          "nodeIndex": "d_eleicao_analise",
+          "nodeLineageTag": "c0d9dd3a-f8a0-41ef-9a44-7c9406f83456",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 578.36163941535983,
+            "y": 46.259883455093586
+          },
+          "nodeIndex": "f_filiados_2024",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 59.151737060875917,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

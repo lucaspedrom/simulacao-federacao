@@ -1,0 +1,7 @@
+expression CaminhoDados = "..\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 8a4c12ef-b203-4f1e-9271-47fa3a19bc62
+	queryGroup: Parâmetros
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text

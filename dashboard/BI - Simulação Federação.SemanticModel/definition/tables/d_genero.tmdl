@@ -1,0 +1,35 @@
+table d_genero
+	lineageTag: 3eca063f-42e8-4964-9e98-d18229c19894
+
+	column cd_genero
+		dataType: int64
+		formatString: 0
+		lineageTag: 45b9128a-249b-445b-b829-c7ddc690516a
+		summarizeBy: none
+		sourceColumn: cd_genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_genero
+		dataType: string
+		lineageTag: a0c269e0-d3a5-4830-8836-7d7226e01a56
+		summarizeBy: none
+		sourceColumn: ds_genero
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_genero = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "d_genero.parquet")
+				                     otherwise try File.Contents("..\data\d_genero.parquet")
+				                     otherwise File.Contents("data\d_genero.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

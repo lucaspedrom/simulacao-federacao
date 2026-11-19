@@ -1,0 +1,52 @@
+table d_partidos
+	lineageTag: 2475a920-87e2-4a8a-8b05-4ab0a1079d86
+
+	column sqPartido
+		dataType: int64
+		formatString: 0
+		lineageTag: d3b13c4f-8aec-4685-9640-4c598566e69b
+		summarizeBy: sum
+		sourceColumn: sqPartido
+
+		annotation SummarizationSetBy = Automatic
+
+	column numero
+		dataType: int64
+		formatString: 0
+		lineageTag: 07602903-4130-4ba1-aec8-b4d56b9d6273
+		summarizeBy: sum
+		sourceColumn: numero
+
+		annotation SummarizationSetBy = Automatic
+
+	column partido
+		dataType: string
+		lineageTag: 6d2a4c72-5730-4afb-b1a9-398aecd8f9be
+		summarizeBy: none
+		sourceColumn: partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome
+		dataType: string
+		lineageTag: d46d9140-9f5f-47e5-b219-9aac94daf27c
+		summarizeBy: none
+		sourceColumn: nome
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_partidos = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "d_partidos.parquet")
+				                     otherwise try File.Contents("..\data\d_partidos.parquet")
+				                     otherwise File.Contents("data\d_partidos.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

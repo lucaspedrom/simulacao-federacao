@@ -1,0 +1,114 @@
+table f_votos_partido_uf
+	lineageTag: 70141ea2-4ee6-4427-9863-c58ce6193472
+
+	column ano_eleicao
+		dataType: int64
+		formatString: 0
+		lineageTag: b24aa60a-7311-4bc5-970e-f23cbe0329bb
+		summarizeBy: sum
+		sourceColumn: ano_eleicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_legenda_validos
+		dataType: int64
+		formatString: 0
+		lineageTag: d2b36c2e-c823-44c8-80fa-a699461977ff
+		summarizeBy: sum
+		sourceColumn: qt_votos_legenda_validos
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nominais_convr_leg
+		dataType: int64
+		formatString: 0
+		lineageTag: 793a87b1-a449-4ddf-87f2-8e92de121b5d
+		summarizeBy: sum
+		sourceColumn: qt_votos_nominais_convr_leg
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_total_votos_leg_validos
+		dataType: int64
+		formatString: 0
+		lineageTag: a6d2057c-5163-4d2b-bc82-889be9e569f9
+		summarizeBy: sum
+		sourceColumn: qt_total_votos_leg_validos
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nominais_validos
+		dataType: int64
+		formatString: 0
+		lineageTag: ede9bfc3-af92-44f1-acaa-1f208b3ae23a
+		summarizeBy: sum
+		sourceColumn: qt_votos_nominais_validos
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_legenda_anul_subjud
+		dataType: int64
+		formatString: 0
+		lineageTag: a59b2d9c-2087-45a6-99c3-5a41c204275d
+		summarizeBy: sum
+		sourceColumn: qt_votos_legenda_anul_subjud
+
+		annotation SummarizationSetBy = Automatic
+
+	column qt_votos_nominais_anul_subjud
+		dataType: int64
+		formatString: 0
+		lineageTag: 34620653-9b9d-41d4-8188-655b5ff95e9e
+		summarizeBy: sum
+		sourceColumn: qt_votos_nominais_anul_subjud
+
+		annotation SummarizationSetBy = Automatic
+
+	column ranking_geral
+		dataType: int64
+		formatString: 0
+		lineageTag: 44a4873d-684b-4e1d-a9ac-36a84958ce25
+		summarizeBy: sum
+		sourceColumn: ranking_geral
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_cargo
+		dataType: string
+		lineageTag: eaf732ec-d1c9-4998-8603-8ad3f539b7d5
+		summarizeBy: none
+		sourceColumn: ds_cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column sg_partido
+		dataType: string
+		lineageTag: 1eb5976a-214d-4d6e-8d79-590c39c0e63d
+		summarizeBy: none
+		sourceColumn: sg_partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column sg_uf
+		dataType: string
+		lineageTag: 6d427990-e6b6-44b7-ac3c-30107aa84f37
+		summarizeBy: none
+		sourceColumn: sg_uf
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_votos_partido_uf = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_votos_partido_uf.parquet")
+				                     otherwise try File.Contents("..\data\f_votos_partido_uf.parquet")
+				                     otherwise File.Contents("data\f_votos_partido_uf.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

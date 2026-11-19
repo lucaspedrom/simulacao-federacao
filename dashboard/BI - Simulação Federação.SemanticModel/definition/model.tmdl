@@ -1,0 +1,51 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+
+queryGroup Parâmetros
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["CaminhoDados","Data de Atualização","d_cor_raca","d_estado","d_genero","d_local_municipio","d_partidos","f_candidatos_2022","f_fefc","f_filiados_2024","f_fundo_partidario","f_historico_eleicoes","f_investimento_partido_candidato","f_mdt_mandatarios_atuais","f_orgaos_vigentes","f_partido_distribuicao_municipio_2024","f_recursos_partidos_2022","f_votos_partido_uf"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table f_mdt_mandatarios_atuais
+ref table DateTableTemplate_1380e17a-3460-4395-8bf6-4b36cea70fdd
+ref table LocalDateTable_7f576c16-3f29-4643-b072-0e22ab16012a
+ref table d_cor_raca
+ref table d_genero
+ref table f_filiados_2024
+ref table LocalDateTable_ebdfa3e3-bd9d-4a49-b0b0-7dee136240c1
+ref table f_recursos_partidos_2022
+ref table LocalDateTable_c7143b5b-0421-42c3-bbd8-d82bdda1df7b
+ref table d_partidos
+ref table d_local_municipio
+ref table Medidas
+ref table d_estado
+ref table f_candidatos_2022
+ref table f_votos_partido_uf
+ref table f_fefc
+ref table f_fundo_partidario
+ref table 'Data de Atualização'
+ref table LocalDateTable_0eb6e5c7-662b-4477-afc0-bc06bf5bb6b8
+ref table LocalDateTable_aeb77dc5-2de3-4c12-be91-bf7c004e6864
+ref table LocalDateTable_9cba7147-dadb-487c-9bab-f6a786b698ee
+ref table f_orgaos_vigentes
+ref table LocalDateTable_29e37f24-2b17-44bb-a473-a03b863fa4e4
+ref table s_partidos_federacao
+ref table f_historico_eleicoes
+ref table f_partido_distribuicao_municipio_2024
+ref table f_investimento_partido_candidato
+ref table d_faixa_pop
+ref table d_eleicao_analise
+
+ref cultureInfo pt-BR
+

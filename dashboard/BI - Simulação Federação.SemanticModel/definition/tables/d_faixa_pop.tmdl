@@ -1,0 +1,39 @@
+table d_faixa_pop
+	lineageTag: c073d8c6-af32-4bc3-ba35-7e04b74d0def
+
+	column cod_faixa_populacional
+		formatString: 0
+		lineageTag: 69a0ea5f-bf0e-454d-b669-8542fddeb8da
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [cod_faixa_populacional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column faixa
+		lineageTag: ef237b7c-f12f-4cab-a782-3ee94775eb71
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [faixa]
+		sortByColumn: cod_faixa_populacional
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_faixa_pop = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				  "cod_faixa_populacional", INTEGER,
+				  "faixa", STRING,
+				  {
+				    { 1, "≤ 10 000" },
+				    { 2, "10 001 – 50 000" },
+				    { 3, "50 001 – 100 000" },
+				    { 4, "100 001 – 500 000" },
+				    { 5, "> 500 000" }
+				  }
+				)
+
+	annotation PBI_Id = 3fb48560631a4ff9b6184795f0f315a3
+

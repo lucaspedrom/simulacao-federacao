@@ -1,0 +1,87 @@
+table f_fefc
+	lineageTag: 71b2a5be-798b-4e9f-856a-b7a82f924fdf
+
+	column sg_partido
+		dataType: string
+		lineageTag: 3a5f08eb-665e-484e-9040-e305ac9e36ec
+		summarizeBy: none
+		sourceColumn: sg_partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cota 2% - Partidos registrados no TSE'
+		dataType: double
+		lineageTag: 989cd4ec-9c2f-40cd-9f0b-f93d3e6e2f9d
+		summarizeBy: sum
+		sourceColumn: Cota 2% - Partidos registrados no TSE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cota 35% - Votos câmara dos deputados'
+		dataType: double
+		lineageTag: e6affbe9-a7db-4c3d-9053-f57c8e170704
+		summarizeBy: sum
+		sourceColumn: Cota 35% - Votos câmara dos deputados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cota 48% - Bancada Câmara dos deputados (incorporações e fusões)'
+		dataType: double
+		lineageTag: ffeabb8c-3793-4724-bd25-768acf782d61
+		summarizeBy: sum
+		sourceColumn: Cota 48% - Bancada Câmara dos deputados (incorporações e fusões)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cota 15% - Bancada Senado'
+		dataType: double
+		lineageTag: 634c7b41-0873-4c4e-8b23-c125fffd35d4
+		summarizeBy: sum
+		sourceColumn: Cota 15% - Bancada Senado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tt_fefc
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 165eba31-eabc-4529-bd9b-a0f73d11de82
+		summarizeBy: sum
+		sourceColumn: tt_fefc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column '% sobre o total do FEFC'
+		dataType: double
+		lineageTag: e02920cb-235c-4a20-b57e-e69dea53e29d
+		summarizeBy: sum
+		sourceColumn: % sobre o total do FEFC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition f_fefc = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_fefc.parquet")
+				                     otherwise try File.Contents("..\data\f_fefc.parquet")
+				                     otherwise File.Contents("data\f_fefc.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

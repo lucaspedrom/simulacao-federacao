@@ -1,0 +1,54 @@
+table f_partido_distribuicao_municipio_2024
+	lineageTag: 737ce311-d9e3-4ae9-9f2b-cfc1d8dd43a7
+
+	column valor
+		dataType: decimal
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 02d753fe-f96d-4615-9c16-edc8af9d166b
+		summarizeBy: sum
+		sourceColumn: valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column sg_partido
+		dataType: string
+		lineageTag: 18ed047f-9ed1-42c9-acdf-87a3f8dd5358
+		summarizeBy: none
+		sourceColumn: sg_partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tse
+		dataType: string
+		lineageTag: 8ed29a3a-c8b9-45ff-a6a5-c47e20523ae8
+		summarizeBy: none
+		sourceColumn: cod_tse
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano_eleicao
+		dataType: int64
+		formatString: 0
+		lineageTag: 9714e715-f388-4a3a-9d16-f35cf3c6911e
+		summarizeBy: sum
+		sourceColumn: ano_eleicao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_partido_distribuicao_municipio_2024 = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_partido_distribuicao_municipio_2024.parquet")
+				                     otherwise try File.Contents("..\data\f_partido_distribuicao_municipio_2024.parquet")
+				                     otherwise File.Contents("data\f_partido_distribuicao_municipio_2024.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

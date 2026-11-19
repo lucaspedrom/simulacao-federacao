@@ -1,0 +1,41 @@
+table d_eleicao_analise
+	lineageTag: c0d9dd3a-f8a0-41ef-9a44-7c9406f83456
+
+	column ano_filtro
+		formatString: 0
+		lineageTag: de7694ac-07be-406a-98e3-61c7685bfa5c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ano_filtro]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_cargo
+		lineageTag: 01ceb6ec-3a39-41fa-b9b6-77e55029dbb2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ds_cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_eleicao_analise = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				  "ano_filtro", INTEGER,
+				  "ds_cargo", STRING,
+				  {
+				    { 2022, "Deputado Estadual" },
+				    { 2022, "Deputado Federal" },
+				    { 2022, "Deputado Distrital" },
+				    { 2022, "Governador" },
+				    { 2022, "Senador" },
+				    { 2024, "Prefeito" },
+				    { 2024, "Vice-Prefeito" },
+				    { 2024, "Vereador" }
+				  }
+				)
+
+	annotation PBI_Id = dd3f914342af46c8842aa9fce4adb4fd
+

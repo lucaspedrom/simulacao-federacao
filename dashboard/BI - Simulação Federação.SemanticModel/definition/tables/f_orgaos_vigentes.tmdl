@@ -1,0 +1,141 @@
+table f_orgaos_vigentes
+	lineageTag: 302c41c3-f9f5-4b8e-911d-c2bab6ca13a6
+
+	column sqOrgaoPartidario
+		dataType: int64
+		formatString: 0
+		lineageTag: df9fa005-c285-4306-9d88-c1512ca4c35a
+		summarizeBy: sum
+		sourceColumn: sqOrgaoPartidario
+
+		annotation SummarizationSetBy = Automatic
+
+	column numero
+		dataType: int64
+		formatString: 0
+		lineageTag: bd0a9854-29bf-4b31-ac04-0db8a456038d
+		summarizeBy: sum
+		sourceColumn: numero
+
+		annotation SummarizationSetBy = Automatic
+
+	column sigla
+		dataType: string
+		lineageTag: 9bf4e8ce-3a3e-411a-a52a-7dd373debf50
+		summarizeBy: none
+		sourceColumn: sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipoOrgao
+		dataType: string
+		lineageTag: fd4a3a8e-5b0e-474d-89da-469415fe95e9
+		summarizeBy: none
+		sourceColumn: tipoOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataInicioVigencia
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 55a9cdd3-cc8c-47d6-9e07-31aa169b49ac
+		summarizeBy: none
+		sourceColumn: dataInicioVigencia
+
+		variation Variation
+			isDefault
+			relationship: ff7e5bad-1609-4d19-afc8-1922aee0a2ba
+			defaultHierarchy: LocalDateTable_29e37f24-2b17-44bb-a473-a03b863fa4e4.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column dataFimVigencia
+		dataType: string
+		lineageTag: 2ba154ee-be60-41a5-ad4e-773c7e680649
+		summarizeBy: none
+		sourceColumn: dataFimVigencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column situacaoiVigencia
+		dataType: string
+		lineageTag: 57c7458f-08a9-4b77-9d96-6b4db289905f
+		summarizeBy: none
+		sourceColumn: situacaoiVigencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column abrangencia
+		dataType: string
+		lineageTag: 49540d64-bc06-4ad5-ae34-619ada3eed81
+		summarizeBy: none
+		sourceColumn: abrangencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: 0030bb56-37b1-4587-bbe8-615a6ca9e2fe
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column sgUeSede
+		dataType: string
+		lineageTag: c0144de2-dead-4e57-b0d0-16acb3e17e93
+		summarizeBy: none
+		sourceColumn: sgUeSede
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio
+		dataType: string
+		lineageTag: 85246ffa-a787-4608-bda9-fd222689716a
+		summarizeBy: none
+		sourceColumn: municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column situacoes
+		dataType: string
+		lineageTag: 14f95f93-a239-4f5d-878b-8f951589b4be
+		summarizeBy: none
+		sourceColumn: situacoes
+
+		annotation SummarizationSetBy = Automatic
+
+	column emitirComissaoExecutiva
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 07ef7e5f-98d8-437b-b7c1-e8d978092437
+		summarizeBy: none
+		sourceColumn: emitirComissaoExecutiva
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tse
+		dataType: string
+		lineageTag: 733acda6-bc7c-4103-91cf-a51afc2e53f1
+		summarizeBy: none
+		sourceColumn: cod_tse
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_orgaos_vigentes = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_orgaos_vigentes.parquet")
+				                     otherwise try File.Contents("..\data\f_orgaos_vigentes.parquet")
+				                     otherwise File.Contents("data\f_orgaos_vigentes.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

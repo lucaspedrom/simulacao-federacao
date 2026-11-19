@@ -1,0 +1,102 @@
+table f_recursos_partidos_2022
+	lineageTag: e8ab57b4-5f29-40e3-8fbc-33d48288b0ee
+
+	column nm_regiao
+		dataType: string
+		lineageTag: c434f909-8eff-4fd4-87bb-a01b6b78acfe
+		summarizeBy: none
+		sourceColumn: nm_regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column sg_uf
+		dataType: string
+		lineageTag: 9b82e098-2a7b-440d-a293-cb173bb1679b
+		summarizeBy: none
+		sourceColumn: sg_uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_tipo_recurso
+		dataType: string
+		lineageTag: 19dcce14-4e67-4fd6-8770-269162b7fbfd
+		summarizeBy: none
+		sourceColumn: ds_tipo_recurso
+
+		annotation SummarizationSetBy = Automatic
+
+	column ds_cargo
+		dataType: string
+		lineageTag: 2af17eb6-4ca0-4828-ba56-2a6ea0866fad
+		summarizeBy: none
+		sourceColumn: ds_cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column vr_receita_rc
+		dataType: double
+		lineageTag: 597363a6-246a-4c72-9a8c-1d3b447c8e65
+		summarizeBy: sum
+		sourceColumn: vr_receita_rc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vr_receita_trf
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 690794c4-7a54-416e-af78-cc301c77f95b
+		summarizeBy: sum
+		sourceColumn: vr_receita_trf
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column vr_receita
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: dc6039a2-bfa1-4f6f-9bf6-59999d863969
+		summarizeBy: sum
+		sourceColumn: vr_receita
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_carga
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e951ba5d-5310-4666-84cb-0565b9aa698e
+		summarizeBy: none
+		sourceColumn: dt_carga
+
+		variation Variation
+			isDefault
+			relationship: e0ac48d8-6620-44ef-aa08-1ad0f07280eb
+			defaultHierarchy: LocalDateTable_c7143b5b-0421-42c3-bbd8-d82bdda1df7b.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column partido
+		dataType: string
+		lineageTag: 1d6821ad-6779-4e01-bff0-882181ce3ea1
+		summarizeBy: none
+		sourceColumn: partido
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_recursos_partidos_2022 = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_recursos_partidos_2022.parquet")
+				                     otherwise try File.Contents("..\data\f_recursos_partidos_2022.parquet")
+				                     otherwise File.Contents("data\f_recursos_partidos_2022.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

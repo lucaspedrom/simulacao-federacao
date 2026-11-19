@@ -1,0 +1,116 @@
+table f_filiados_2024
+	lineageTag: fa4096a0-f1fc-4282-a154-1218ce40cb16
+
+	column UF
+		dataType: string
+		lineageTag: c64eb81f-109c-4281-83f1-62fee43a3ffe
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data de carga'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 66ed0cc1-d0c4-430c-a1a9-3ed3106aa951
+		summarizeBy: none
+		sourceColumn: Data de carga
+
+		variation Variation
+			isDefault
+			relationship: f7f2e192-5794-41a8-8ff9-57e63f58c5ef
+			defaultHierarchy: LocalDateTable_ebdfa3e3-bd9d-4a49-b0b0-7dee136240c1.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: string
+		lineageTag: 20484c9c-427d-480b-96c1-9f23627aa43c
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: string
+		lineageTag: c080a910-4d33-4640-b0e1-77b8d9717544
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Municipio
+		dataType: string
+		lineageTag: f1ca5a47-16eb-4c19-8e1f-2af2bb7844fb
+		summarizeBy: none
+		sourceColumn: Municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Partido
+		dataType: string
+		lineageTag: ec577cc0-dc56-495d-8c77-6d711a71c65a
+		summarizeBy: none
+		sourceColumn: Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantitativo
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3ff38ba3-2145-4452-8c1d-0e654021fc93
+		summarizeBy: sum
+		sourceColumn: Quantitativo
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf_municipio
+		dataType: string
+		lineageTag: c9f21b53-56b2-4b09-8e95-82b2967029a6
+		summarizeBy: none
+		sourceColumn: uf_municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tse
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c7f4371-abc5-4830-8a5f-5486b6a8865a
+		summarizeBy: none
+		sourceColumn: cod_tse
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_ano
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 807e67d7-ea2c-4713-8173-49e4a9fef804
+		summarizeBy: none
+		sourceColumn: mes_ano
+
+		variation Variation
+			isDefault
+			relationship: cd27f4de-7731-4a5a-ab3b-5645b5cd3693
+			defaultHierarchy: LocalDateTable_aeb77dc5-2de3-4c12-be91-bf7c004e6864.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition f_filiados_2024 = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_filiados_2024.parquet")
+				                     otherwise try File.Contents("..\data\f_filiados_2024.parquet")
+				                     otherwise File.Contents("data\f_filiados_2024.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo)
+				in
+				    Fonte
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

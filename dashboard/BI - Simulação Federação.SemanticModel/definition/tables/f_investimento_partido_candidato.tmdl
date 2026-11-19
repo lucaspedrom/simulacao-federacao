@@ -1,0 +1,102 @@
+table f_investimento_partido_candidato
+	lineageTag: dbb73027-51a8-4bad-88c1-d67050b3f806
+
+	column ANO_ELEICAO
+		dataType: int64
+		formatString: 0
+		lineageTag: 414c9b64-e6d3-444e-8136-b41837c83dba
+		summarizeBy: sum
+		sourceColumn: ANO_ELEICAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SQ_CANDIDATO
+		dataType: string
+		lineageTag: dea3bc44-ec16-4a83-82e2-6130a7f30334
+		summarizeBy: none
+		sourceColumn: SQ_CANDIDATO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SG_PARTIDO
+		dataType: string
+		lineageTag: 6009d384-f5a8-45e6-aa8d-f42a1d246d91
+		summarizeBy: none
+		sourceColumn: SG_PARTIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VR_RECEITA
+		dataType: decimal
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: d9946ac0-a8f5-41b7-85d9-f0f791880f37
+		summarizeBy: sum
+		sourceColumn: VR_RECEITA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column PARTIDO_CANDIDATO = ```
+			
+			CALCULATE(
+			    SELECTEDVALUE(f_historico_eleicoes[sg_partido]),
+			    FILTER(
+			        f_historico_eleicoes,
+			        FORMAT(f_historico_eleicoes[sq_candidato], "0") = FORMAT(f_investimento_partido_candidato[SQ_CANDIDATO], "0")
+			        && f_historico_eleicoes[aa_eleicao] = f_investimento_partido_candidato[ANO_ELEICAO]
+			    )
+			)
+			
+			```
+		lineageTag: 52ac1f62-f047-4cfb-8480-f33a85f7601a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TSE_CANDIDATO =
+			
+			CALCULATE(
+			    SELECTEDVALUE(f_historico_eleicoes[cod_tse]),
+			    FILTER(
+			        f_historico_eleicoes,
+			        FORMAT(f_historico_eleicoes[sq_candidato], "0") = FORMAT(f_investimento_partido_candidato[SQ_CANDIDATO], "0")
+			        && f_historico_eleicoes[aa_eleicao] = f_investimento_partido_candidato[ANO_ELEICAO]
+			    )
+			)
+		lineageTag: 2023cae6-ea18-4023-9177-ebc407042543
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CARGO_CANDIDATO =
+			
+			CALCULATE(
+			    SELECTEDVALUE(f_historico_eleicoes[ds_cargo]),
+			    FILTER(
+			        f_historico_eleicoes,
+			        FORMAT(f_historico_eleicoes[sq_candidato], "0") = FORMAT(f_investimento_partido_candidato[SQ_CANDIDATO], "0")
+			        && f_historico_eleicoes[aa_eleicao] = f_investimento_partido_candidato[ANO_ELEICAO]
+			    )
+			)
+		lineageTag: 2b8991b5-b377-4be0-bb8b-43e080dcf3db
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition f_investimento_partido_candidato = m
+		mode: import
+		source = ```
+				let
+				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_investimento_partido_candidato.parquet")
+				                     otherwise try File.Contents("..\data\f_investimento_partido_candidato.parquet")
+				                     otherwise File.Contents("data\f_investimento_partido_candidato.parquet"),
+				    Fonte = Parquet.Document(CaminhoArquivo),
+				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"PARTIDO_CANDIDATO", "COD_TSE_CANDIDATO", "CARGO_CANDIDATO"}, MissingField.Ignore)
+				in
+				    #"Colunas Calculadas Removidas"
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

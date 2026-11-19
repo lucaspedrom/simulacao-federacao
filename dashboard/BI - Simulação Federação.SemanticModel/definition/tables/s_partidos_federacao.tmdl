@@ -1,0 +1,22 @@
+table s_partidos_federacao
+	lineageTag: db978746-ff02-44e6-a09e-346f4c52907d
+
+	column partido
+		lineageTag: 490b8323-5e9b-4fa3-acfd-898ef5fdb16b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [partido]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition s_partidos_federacao = calculated
+		mode: import
+		source =
+				
+				UNION(
+				    SELECTCOLUMNS(d_partidos, "partido", d_partidos[partido]),
+				    ROW("partido", "SIMULAÇÃO")
+				)
+
+	annotation PBI_Id = 459cf6d86dcf4652aacc8e4bbfb40ab5
+
