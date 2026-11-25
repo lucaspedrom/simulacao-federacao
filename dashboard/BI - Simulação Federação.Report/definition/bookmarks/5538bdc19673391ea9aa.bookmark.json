@@ -1502,21 +1502,6 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "d257036a697e03da0b36",
-                  "type": "Categorical",
-                  "expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "f_historico_eleicoes"
-                        }
-                      },
-                      "Property": "foto_url"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
                   "name": "8a387e740058370255c3",
                   "type": "Advanced",
                   "expression": {

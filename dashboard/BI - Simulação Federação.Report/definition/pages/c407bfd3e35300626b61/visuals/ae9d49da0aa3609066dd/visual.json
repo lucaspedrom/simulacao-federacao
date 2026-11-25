@@ -161,5 +161,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0f136a990707ee94d869",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "4.02 Partidos Selecionados"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

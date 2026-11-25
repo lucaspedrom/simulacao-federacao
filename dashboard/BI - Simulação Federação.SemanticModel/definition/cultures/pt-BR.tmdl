@@ -9498,16 +9498,6 @@ cultureInfo pt-BR
 			            },
 			            "Weight": 0.589
 			          }
-			        },
-			        {
-			          "Foto": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },

@@ -134,21 +134,6 @@
               "queryRef": "Medidas.6.10 Mandatário Atual",
               "nativeQueryRef": "Mandatário",
               "displayName": "Mandatário"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "f_historico_eleicoes"
-                    }
-                  },
-                  "Property": "foto_url"
-                }
-              },
-              "queryRef": "f_historico_eleicoes.foto_url",
-              "nativeQueryRef": "Foto",
-              "displayName": "Foto"
             }
           ]
         }
@@ -458,6 +443,13 @@
                   "Value": "'Center'"
                 }
               }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           },
           "selector": {
@@ -569,21 +561,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "106.16949338550178D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "f_historico_eleicoes.foto_url"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "134.31783193770576D"
+                  "Value": "242.23600330668313D"
                 }
               }
             }
@@ -1013,20 +991,6 @@
           }
         },
         "type": "Advanced"
-      },
-      {
-        "name": "0ed8b085bb6b9bf4bb58",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "f_historico_eleicoes"
-              }
-            },
-            "Property": "foto_url"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }
