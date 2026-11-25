@@ -2588,7 +2588,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Clausula de Barreira 1%": {
+			          "1%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2598,7 +2598,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "1%": {
+			          "Clausula de Barreira 1%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2624,7 +2624,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Clausula de Barreira 1.5%": {
+			          "1.5%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2634,7 +2634,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "1.5%": {
+			          "Clausula de Barreira 1.5%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2660,7 +2660,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Clausula de Barreira 2%": {
+			          "2%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2670,7 +2670,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "2%": {
+			          "Clausula de Barreira 2%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2696,7 +2696,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "Clausula de Barreira 2,5%": {
+			          "2,5%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2706,7 +2706,7 @@ cultureInfo pt-BR
 			          }
 			        },
 			        {
-			          "2,5%": {
+			          "Clausula de Barreira 2,5%": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

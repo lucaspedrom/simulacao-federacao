@@ -485,5 +485,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "dd697d858c1fc715151a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "f_historico_eleicoes"
+              }
+            },
+            "Property": "aa_eleicao"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "37b4be5fcaa0e1aa3aca",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_partidos"
+              }
+            },
+            "Property": "partido"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d58fcb319681fd1978fe",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "9.06 Qtd. Votos Obtidos Histórico"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

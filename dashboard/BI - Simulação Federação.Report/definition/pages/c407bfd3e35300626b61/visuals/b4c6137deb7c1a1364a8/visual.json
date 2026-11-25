@@ -185,5 +185,37 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7b686144bca7c23aea5d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "9.01 Qtd. Votos Válidos Última Eleição Card"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5f47bcc2a7eb0e85feaf",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "9.02 % Votos Válidos Última Eleição"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -37,16 +37,17 @@ table d_partidos
 
 	partition d_partidos = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "d_partidos.parquet")
-				                     otherwise try File.Contents("..\data\d_partidos.parquet")
-				                     otherwise File.Contents("data\d_partidos.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo)
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "d_partidos.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo))
 				in
 				    Fonte
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+

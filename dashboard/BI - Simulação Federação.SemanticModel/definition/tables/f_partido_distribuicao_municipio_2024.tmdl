@@ -2,7 +2,7 @@ table f_partido_distribuicao_municipio_2024
 	lineageTag: 737ce311-d9e3-4ae9-9f2b-cfc1d8dd43a7
 
 	column valor
-		dataType: decimal
+		dataType: double
 		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: 02d753fe-f96d-4615-9c16-edc8af9d166b
 		summarizeBy: sum
@@ -39,16 +39,17 @@ table f_partido_distribuicao_municipio_2024
 
 	partition f_partido_distribuicao_municipio_2024 = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_partido_distribuicao_municipio_2024.parquet")
-				                     otherwise try File.Contents("..\data\f_partido_distribuicao_municipio_2024.parquet")
-				                     otherwise File.Contents("data\f_partido_distribuicao_municipio_2024.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo)
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "f_partido_distribuicao_municipio_2024.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo))
 				in
 				    Fonte
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+

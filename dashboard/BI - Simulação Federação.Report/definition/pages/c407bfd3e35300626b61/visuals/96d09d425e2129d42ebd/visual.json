@@ -366,7 +366,7 @@
             "autoSizeColumnWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -915,6 +915,118 @@
             }
           ]
         }
+      },
+      {
+        "name": "461a91c7c119a3e4a4b4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_local_municipio"
+              }
+            },
+            "Property": "uf"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "693ea31b02cb262f8f65",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "f_historico_eleicoes"
+              }
+            },
+            "Property": "ds_cargo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "044d3a83e4fa3dca00cb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "f_historico_eleicoes"
+              }
+            },
+            "Property": "nm_urna_candidato"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "47cc3e546647aa880d60",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "f_historico_eleicoes"
+              }
+            },
+            "Property": "sg_partido"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7191a5c5197c476efa95",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "9.01 Qtd. Votos Válidos Última Eleição"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "32c0b8b7682a64ec88e7",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "9.13 Valor Investido no Próprio Candidato - Tabela"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6c9e17d1ce4aa3bcbb9a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "6.10 Mandatário Atual"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0ed8b085bb6b9bf4bb58",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "f_historico_eleicoes"
+              }
+            },
+            "Property": "foto_url"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }

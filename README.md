@@ -5,7 +5,7 @@
 [![DAX](https://img.shields.io/badge/Analytics-88_Medidas_DAX-orange)](#-modelagem-dax--inteligência-analítica)
 [![TSE Open Data](https://img.shields.io/badge/Data_Source-TSE_Open_Data-green)](https://dadosabertos.tse.jus.br/)
 
-Repositório analítico desenvolvido para **simulação de cenários de federação partidária no Brasil**, cruzando dados oficiais do Tribunal Superior Eleitoral (TSE). O projeto foi construído utilizando a arquitetura moderna do Power BI em código aberto (**Power BI Project - `.pbip` / TMDL**) com camada de dados desacoplada e otimizada em **Apache Parquet**, garantindo **portabilidade 100% relativa** para qualquer desenvolvedor ou avaliador que clonar o repositório.
+Repositório analítico desenvolvido para **simulação de cenários de federação partidária no Brasil**, cruzando dados oficiais do Tribunal Superior Eleitoral (TSE). O projeto foi construído utilizando a arquitetura moderna do Power BI em código aberto (**Power BI Project - `.pbip` / TMDL**) com camada de dados desacoplada e otimizada em **Apache Parquet**, com parâmetro centralizado de configuração de dados (`CaminhoDados`), garantindo fácil replicação e portabilidade para qualquer desenvolvedor ou avaliador que clonar o repositório.
 
 ---
 
@@ -67,7 +67,7 @@ simulacao-federacao/
 │   ├── BI - Simulação Federação.Report/ # Layout, páginas, visuais e tooltips (JSON)
 │   └── BI - Simulação Federação.SemanticModel/ # Modelo de dados em TMDL
 │       ├── definition/
-│       │   ├── expressions.tmdl         # Parâmetro de Caminho Relativo dinâmico
+│       │   ├── expressions.tmdl         # Parâmetro centralizado de dados (CaminhoDados)
 │       │   ├── model.tmdl               # Metadados do modelo e ordenação
 │       │   ├── relationships.tmdl       # Relacionamentos Star Schema
 │       │   └── tables/                  # 17 tabelas de dados + tabelas DAX + medidas
@@ -79,7 +79,7 @@ simulacao-federacao/
 ### Principais Decisões Técnicas de Engenharia:
 * **Formato Apache Parquet Colunar:** Alta compressão, leitura colunar eficiente, preservação de tipagem forte e redução de mais de 75% da volumetria comparada a CSVs brutos.
 * **Tamanho Otimizado (<100 MB):** A tabela de histórico eleitoral (`f_historico_eleicoes`), contendo mais de **23 milhões de registros**, foi otimizada para apenas **70.4 MB**, permitindo versionamento nativo no GitHub sem estourar limites de arquivo.
-* **Caminhos 100% Relativos & Portabilidade:** Utilização do parâmetro Power Query `CaminhoDados = "..\data\"` com tratamento de fallback triplo (`try File.Contents(...) otherwise try ...`), permitindo que qualquer pessoa que clone o projeto abra o `.pbip` no Power BI Desktop e veja os dados carregados instantaneamente, sem precisar remapear caminhos locais de máquina.
+* **Parâmetro Centralizado de Dados (`CaminhoDados`):** Em conformidade com a arquitetura do Power Query (onde conectores de arquivo local `File.Contents` exigem caminhos absolutos válidos), o projeto desacopla a localização dos arquivos através do parâmetro `CaminhoDados`. Todas as 17 tabelas consom esse parâmetro com normalização automática de barras (`\` ou `/`). Qualquer pessoa que clonar o repositório só precisa ajustar este parâmetro único com 2 cliques na interface do Power BI Desktop (**Página Inicial > Transformar Dados > Editar Parâmetros**), sem necessidade de alterar código M em nenhuma tabela.
 * **Separação Clara de Responsabilidades (ETL vs. DAX):** As colunas analíticas que dependem de contexto dinâmico do modelo foram eliminadas da camada de ingestão no Power Query (`Table.RemoveColumns`) e mantidas estritamente como **colunas calculadas em DAX**, evidenciando maturidade em modelagem relacional.
 
 ---
@@ -126,5 +126,10 @@ O modelo semântico conta com **88 medidas DAX** organizadas e estruturadas:
    * Abra diretamente o arquivo:
      `dashboard/BI - Simulação Federação.pbip`
    * O Power BI carregará automaticamente as definições do modelo (`.SemanticModel`) e o layout das telas (`.Report`).
-   * Os dados serão lidos diretamente dos arquivos `.parquet` dentro da pasta `data/` usando o caminho relativo configurado.
+
+4. **Configurar o Caminho dos Dados (Apenas no primeiro acesso após clonar):**
+   * Como a função `File.Contents` do Power BI exige o caminho absoluto do sistema de arquivos local, o projeto gerencia a localização das 17 tabelas por meio do parâmetro centralizado **`CaminhoDados`**.
+   * Na barra superior (guia **Página Inicial**), clique na setinha para baixo do botão **Transformar Dados** e selecione **Editar Parâmetros**.
+   * No campo **`CaminhoDados`**, insira o caminho absoluto da pasta `data` clonada na sua máquina (por exemplo: `D:\Projetos\simulacao-federacao\data\` ou `C:\Users\SeuUsuario\simulacao-federacao\data\`).
+   * Clique em **OK** e, na faixa amarela que surgir, clique em **Aplicar Alterações**. Todas as 17 tabelas serão carregadas simultaneamente sem necessidade de qualquer alteração manual no código M.
 

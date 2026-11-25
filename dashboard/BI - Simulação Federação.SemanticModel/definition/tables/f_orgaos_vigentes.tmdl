@@ -49,8 +49,6 @@ table f_orgaos_vigentes
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column dataFimVigencia
 		dataType: string
 		lineageTag: 2ba154ee-be60-41a5-ad4e-773c7e680649
@@ -126,16 +124,17 @@ table f_orgaos_vigentes
 
 	partition f_orgaos_vigentes = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_orgaos_vigentes.parquet")
-				                     otherwise try File.Contents("..\data\f_orgaos_vigentes.parquet")
-				                     otherwise File.Contents("data\f_orgaos_vigentes.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo)
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "f_orgaos_vigentes.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo))
 				in
 				    Fonte
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+

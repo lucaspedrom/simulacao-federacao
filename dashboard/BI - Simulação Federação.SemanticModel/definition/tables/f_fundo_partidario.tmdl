@@ -44,22 +44,21 @@ table f_fundo_partidario
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 		annotation PBI_FormatHint = {"isDateTimeCustom":true}
 
 	partition f_fundo_partidario = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_fundo_partidario.parquet")
-				                     otherwise try File.Contents("..\data\f_fundo_partidario.parquet")
-				                     otherwise File.Contents("data\f_fundo_partidario.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo)
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "f_fundo_partidario.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo))
 				in
 				    Fonte
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+

@@ -123,17 +123,18 @@ table f_historico_eleicoes
 
 	partition f_historico_eleicoes = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_historico_eleicoes.parquet")
-				                     otherwise try File.Contents("..\data\f_historico_eleicoes.parquet")
-				                     otherwise File.Contents("data\f_historico_eleicoes.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo),
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "f_historico_eleicoes.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo)),
 				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"ordem_cargo"}, MissingField.Ignore)
 				in
 				    #"Colunas Calculadas Removidas"
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+

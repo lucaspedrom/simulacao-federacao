@@ -112,8 +112,6 @@ table f_mdt_mandatarios_atuais
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column cd_genero
 		dataType: int64
 		formatString: 0
@@ -159,16 +157,17 @@ table f_mdt_mandatarios_atuais
 
 	partition f_mdt_mandatarios_atuais = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_mdt_mandatarios_atuais.parquet")
-				                     otherwise try File.Contents("..\data\f_mdt_mandatarios_atuais.parquet")
-				                     otherwise File.Contents("data\f_mdt_mandatarios_atuais.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo)
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "f_mdt_mandatarios_atuais.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo))
 				in
 				    Fonte
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+

@@ -17,16 +17,13 @@ table 'Data de Atualização'
 
 	partition 'Data de Atualização' = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "Data de Atualização.parquet")
-				                     otherwise try File.Contents("..\data\Data de Atualização.parquet")
-				                     otherwise File.Contents("data\Data de Atualização.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo)
+				    Fonte = DateTimeZone.UtcNow() -#duration(0,3,0,0)
 				in
 				    Fonte
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = DateTimeZone
+

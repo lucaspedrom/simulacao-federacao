@@ -27,7 +27,7 @@ table f_investimento_partido_candidato
 		annotation SummarizationSetBy = Automatic
 
 	column VR_RECEITA
-		dataType: decimal
+		dataType: double
 		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
 		lineageTag: d9946ac0-a8f5-41b7-85d9-f0f791880f37
 		summarizeBy: sum
@@ -86,17 +86,18 @@ table f_investimento_partido_candidato
 
 	partition f_investimento_partido_candidato = m
 		mode: import
-		source = ```
+		source =
 				let
-				    CaminhoArquivo = try File.Contents(CaminhoDados & "f_investimento_partido_candidato.parquet")
-				                     otherwise try File.Contents("..\data\f_investimento_partido_candidato.parquet")
-				                     otherwise File.Contents("data\f_investimento_partido_candidato.parquet"),
-				    Fonte = Parquet.Document(CaminhoArquivo),
+				    CaminhoBase = if Text.EndsWith(CaminhoDados, "\") or Text.EndsWith(CaminhoDados, "/") then CaminhoDados else CaminhoDados & "\",
+				
+				    CaminhoArquivo = CaminhoBase & "f_investimento_partido_candidato.parquet",
+				
+				    Fonte = Parquet.Document(File.Contents(CaminhoArquivo)),
 				    #"Colunas Calculadas Removidas" = Table.RemoveColumns(Fonte, {"PARTIDO_CANDIDATO", "COD_TSE_CANDIDATO", "CARGO_CANDIDATO"}, MissingField.Ignore)
 				in
 				    #"Colunas Calculadas Removidas"
-				```
 
 	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
+
